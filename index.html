@@ -1573,6 +1573,12 @@
                     <div class="cert-meta">Valid: August 2022 - August 2024</div>
                     <span class="cert-status expired">Expired</span>
                 </div>
+                <div class="cert-card reveal" onclick="openModal('cert-spark-de')">
+                    <div class="cert-badge">⚡</div>
+                    <h3>Databricks Certified Associate Developer for Apache Spark 3.0</h3>
+                    <div class="cert-meta">Valid: December 2022 - Do Not Expire</div>
+                    <span class="cert-status expired">Expired</span>
+                </div>
             </div>
         </div>
     </section>
@@ -1809,11 +1815,12 @@
             const caption = document.getElementById('modalCaption');
             
             const items = {
-                'cert-fabric-de': { src: 'assets/cert/fabric-de.png', caption: 'Microsoft Fabric Data Engineer' },
-                'cert-fabric-analytics': { src: 'assets/cert/fabric-analytics.png', caption: 'Microsoft Fabric Analytics Engineer' },
+                'cert-fabric-de': { src: 'assets/cert/fde.png', caption: 'Microsoft Fabric Data Engineer' },
+                'cert-fabric-analytics': { src: 'assets/cert/fae.png', caption: 'Microsoft Fabric Analytics Engineer' },
                 'cert-azure-de': { src: 'assets/cert/de.png', caption: 'Azure Data Engineer' },
-                'cert-powerbi': { src: 'assets/cert/powerbi.png', caption: 'Power BI Data Analyst' },
-                'cert-databricks-de': { src: 'assets/cert/databricks-de.png', caption: 'Databricks Data Engineer' },
+                'cert-powerbi': { src: 'assets/cert/pbi.png', caption: 'Power BI Data Analyst' },
+                'cert-databricks-de': { src: 'assets/cert/dbdea.png', caption: 'Databricks Data Engineer' },
+                'cert-spark-de': { src: 'assets/cert/spark.png', caption: 'Databricks Spark 3.0' },
                 'award-xtramile': { src: 'assets/cert/xm.jpg', caption: 'XtraMile Award' },
                 'award-inspiring-idea': { src: 'assets/cert/idea.jpg', caption: 'Most Inspiring Idea Award' }
             };
@@ -1839,6 +1846,7 @@
     </script>
 </body>
 </html>
+
 
 
 
