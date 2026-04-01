@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Notes | Praveen's Learning Hub</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --bg: #0d1117;
+      --bg-card: #161b22;
+      --bg-card-hover: #1c2333;
+      --border: #30363d;
+      --border-hover: #58a6ff;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --blue: #58a6ff;
+      --purple: #bc8cff;
+      --green: #3fb950;
+      --orange: #f0883e;
+      --pink: #ff7b72;
+      --teal: #39d0b0;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--blue); }
+    .topbar-sep { color: var(--border); font-size: 1.2rem; }
+    .topbar-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .topbar-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      background: rgba(88,166,255,0.15);
+      color: var(--blue);
+      border: 1px solid rgba(88,166,255,0.3);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 4rem 2rem 2.5rem;
+      text-align: center;
+    }
+    .hero-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text) 0%, var(--blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-header h2 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── EXAM CARDS GRID ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .exam-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .exam-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--blue));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .exam-card:hover {
+      border-color: var(--card-accent, var(--blue));
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    }
+    .exam-card:hover::before { opacity: 1; }
+
+    /* color accents per card */
+    .exam-card.blue  { --card-accent: var(--blue); }
+    .exam-card.purple { --card-accent: var(--purple); }
+    .exam-card.green { --card-accent: var(--green); }
+    .exam-card.orange { --card-accent: var(--orange); }
+    .exam-card.teal  { --card-accent: var(--teal); }
+    .exam-card.pink  { --card-accent: var(--pink); }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .card-code {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      color: var(--card-accent, var(--blue));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .card-arrow {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      transition: transform 0.2s, color 0.2s;
+    }
+    .exam-card:hover .card-arrow {
+      transform: translate(3px, -3px);
+      color: var(--card-accent, var(--blue));
+    }
+
+    .card-body h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .card-body p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: auto;
+    }
+    .card-tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.18rem 0.55rem;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    /* ── COMING SOON CARD ── */
+    .exam-card.soon {
+      opacity: 0.45;
+      cursor: default;
+      pointer-events: none;
+    }
+    .exam-card.soon:hover { transform: none; box-shadow: none; }
+    .soon-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.2rem 0.55rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <nav class="topbar">
+    <div class="topbar-left">
+      <a href="../index.html" class="back-link">&#8592; Home</a>
+      <span class="topbar-sep">/</span>
+      <span class="topbar-title">Notes</span>
+    </div>
+    <span class="topbar-badge">Microsoft &amp; AI</span>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-label">&#128221; Study Notes</span>
+    <h1>Certification Exam Notes</h1>
+    <p>Personal notes and study guides for Microsoft &amp; AI certification exams. Click any card to open its notes.</p>
+  </div>
+
+  <!-- ACTIVE CERTIFICATIONS -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Active</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- AB-900 -->
+      <a class="exam-card purple" href="ab-900/index.html">
+        <div class="card-top">
+          <span class="card-code">AB-900</span>
+          <span class="card-arrow">&#8599;</span>
+        </div>
+        <div class="card-body">
+          <h3>M365 Copilot &amp; Agent Administration</h3>
+          <p>Microsoft 365 Copilot, Purview data governance, security, and AI agent administration.</p>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">M365 Copilot</span>
+          <span class="card-tag">Purview</span>
+          <span class="card-tag">Agents</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- COMING SOON -->
+  <div class="section" style="padding-top: 0;">
+    <div class="section-header">
+      <h2>Coming Soon</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="cards-grid">
+
+      <div class="exam-card teal soon">
+        <div class="card-top">
+          <span class="card-code">AI-900</span>
+          <span class="soon-badge">Soon</span>
+        </div>
+        <div class="card-body">
+          <h3>Azure AI Fundamentals</h3>
+          <p>AI workloads, machine learning, computer vision, NLP, and generative AI on Azure.</p>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">AI Concepts</span>
+          <span class="card-tag">ML Basics</span>
+          <span class="card-tag">Gen AI</span>
+        </div>
+      </div>
+
+      <div class="exam-card orange soon">
+        <div class="card-top">
+          <span class="card-code">AI-102</span>
+          <span class="soon-badge">Soon</span>
+        </div>
+        <div class="card-body">
+          <h3>Designing &amp; Implementing Azure AI Solutions</h3>
+          <p>Azure AI services, OpenAI integration, knowledge mining, and responsible AI.</p>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">Azure OpenAI</span>
+          <span class="card-tag">Cognitive Services</span>
+          <span class="card-tag">AI Engineer</span>
+        </div>
+      </div>
+
+      <div class="exam-card green soon">
+        <div class="card-top">
+          <span class="card-code">DP-900</span>
+          <span class="soon-badge">Soon</span>
+        </div>
+        <div class="card-body">
+          <h3>Azure Data Fundamentals</h3>
+          <p>Core data concepts, relational and non-relational data, and analytics workloads on Azure.</p>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">Data Concepts</span>
+          <span class="card-tag">Azure SQL</span>
+          <span class="card-tag">Analytics</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>Notes by Praveen &nbsp;|&nbsp; <a href="../index.html">&#8592; Back to Home</a></p>
+  </footer>
+
+</body>
+</html>
