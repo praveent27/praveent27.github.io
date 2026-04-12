@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-900 Complete Exam Guide — Azure AI Fundamentals</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --ms-blue: #0078D4; --ms-dark: #005A9E; --ms-light: #EFF6FC; --ms-purple: #5C2D91;
+    --ms-purple-light: #F4EFF9; --ms-teal: #008272; --ms-teal-light: #EFF9F8;
+    --ms-red: #A80000; --ms-orange: #CA5010; --ms-green: #107C10; --ms-green-light: #DFF6DD;
+    --ai-cyan: #00B4D8; --ai-cyan-light: #E0F7FA;
+    --exam-yellow: #FFF4CE; --exam-border: #FFB900; --warn-bg: #FDE7E9; --warn-border: #A80000;
+    --bg: #F8F9FA; --card: #FFFFFF; --text: #201F1E; --sub: #605E5C; --border: #E1DFDD;
+    --shadow: 0 2px 10px rgba(0,0,0,0.07); --radius: 12px; --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit','Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; font-size:14px; -webkit-font-smoothing:antialiased; }
+  a { color:var(--ms-blue); text-decoration:none; }
+  code { font-family:'JetBrains Mono',monospace; background:#E8ECF1; padding:2px 6px; border-radius:4px; font-size:12px; color:var(--ms-blue); }
+  .sticky-nav { position:sticky; top:0; background:rgba(0,180,216,0.97); backdrop-filter:blur(8px); z-index:100; padding:0 32px; border-bottom:1px solid rgba(255,255,255,0.15); }
+  .sticky-nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; height:52px; gap:6px; overflow-x:auto; scrollbar-width:none; }
+  .sticky-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-tag { white-space:nowrap; padding:5px 14px; border-radius:50px; font-size:12.5px; font-weight:600; color:rgba(255,255,255,0.75); transition:all 0.2s; border:1px solid transparent; cursor:pointer; }
+  .nav-tag:hover { color:white; border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.1); }
+  .nav-logo { font-weight:700; color:white; font-size:13px; margin-right:8px; white-space:nowrap; flex-shrink:0; }
+  .nav-sep { width:1px; height:20px; background:rgba(255,255,255,0.2); flex-shrink:0; }
+  .cover { background:linear-gradient(135deg,#00B4D8 0%,#0078D4 40%,#5C2D91 100%); color:white; padding:64px 40px 56px; text-align:center; position:relative; overflow:hidden; }
+  .cover::before { content:''; position:absolute; top:-60px; right:-60px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,0.04); }
+  .cover::after { content:''; position:absolute; bottom:-40px; left:-40px; width:200px; height:200px; border-radius:50%; background:rgba(255,255,255,0.04); }
+  .cover .pill-top { display:inline-block; background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.35); border-radius:50px; padding:5px 18px; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:20px; }
+  .cover h1 { font-size:clamp(2rem,5vw,3rem); font-weight:800; line-height:1.15; margin-bottom:10px; letter-spacing:-0.5px; }
+  .cover .subtitle { font-size:16px; opacity:0.88; margin-bottom:28px; max-width:680px; margin-left:auto; margin-right:auto; }
+  .cover .pills { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:24px; }
+  .cover .pill { background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); border-radius:50px; padding:6px 16px; font-size:13px; font-weight:500; }
+  .wrap { max-width:1100px; margin:0 auto; padding:0 32px 40px; }
+  .domain-header { padding:28px 40px; color:white; display:flex; align-items:center; gap:16px; margin-top:8px; }
+  .domain-header .dh-icon { font-size:2em; flex-shrink:0; }
+  .domain-header h2 { font-size:1.55em; font-weight:700; letter-spacing:-0.3px; }
+  .domain-header .dh-badge { margin-left:auto; background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3); border-radius:50px; padding:4px 14px; font-size:13px; font-weight:600; white-space:nowrap; }
+  .dh-cyan { background:linear-gradient(90deg,#00B4D8,#0078D4); }
+  .dh-purple { background:linear-gradient(90deg,#5C2D91,#7B2FBE); }
+  .dh-teal { background:linear-gradient(90deg,#008272,#005F5F); }
+  .dh-dark { background:linear-gradient(90deg,#1B1464,#0078D4); }
+  h3.sec { font-size:18px; font-weight:700; color:var(--ms-blue); border-bottom:3px solid var(--ms-blue); padding-bottom:8px; margin:32px 0 16px; letter-spacing:-0.2px; }
+  h3.sec.purple { color:var(--ms-purple); border-color:var(--ms-purple); }
+  h3.sec.teal { color:var(--ms-teal); border-color:var(--ms-teal); }
+  h3.sec.cyan { color:var(--ai-cyan); border-color:var(--ai-cyan); }
+  .card { background:var(--card); border-radius:var(--radius); border:1px solid var(--border); box-shadow:var(--shadow); margin:16px 0; overflow:hidden; }
+  .card-head { background:var(--ms-light); border-bottom:3px solid var(--ms-blue); padding:13px 20px; display:flex; align-items:center; gap:10px; }
+  .card-head.purple { background:var(--ms-purple-light); border-bottom-color:var(--ms-purple); }
+  .card-head.teal { background:var(--ms-teal-light); border-bottom-color:var(--ms-teal); }
+  .card-head.cyan { background:var(--ai-cyan-light); border-bottom-color:var(--ai-cyan); }
+  .card-head h4 { font-size:1.02em; font-weight:700; color:var(--ms-dark); }
+  .card-head.purple h4 { color:var(--ms-purple); }
+  .card-head.teal h4 { color:var(--ms-teal); }
+  .card-head.cyan h4 { color:var(--ai-cyan); }
+  .card-head .ch-icon { font-size:1.25em; }
+  .card-body { padding:20px; }
+  p.body-text { font-size:14px; margin:8px 0 12px; color:var(--sub); line-height:1.7; }
+  table { width:100%; border-collapse:collapse; font-size:13px; margin:12px 0; }
+  table th { background:var(--ms-blue); color:white; padding:9px 13px; text-align:left; font-size:12px; font-weight:600; letter-spacing:0.3px; }
+  table.purple th { background:var(--ms-purple); }
+  table.teal th { background:var(--ms-teal); }
+  table.cyan th { background:var(--ai-cyan); }
+  table.dark th { background:#1B1464; }
+  table td { padding:9px 13px; border-bottom:1px solid var(--border); vertical-align:top; color:var(--sub); }
+  table tr:nth-child(even) td { background:#FAFAFA; }
+  .info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin:14px 0; }
+  .info-box { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:13px; }
+  .info-box .lbl { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:var(--sub); margin-bottom:5px; }
+  .info-box .val { font-size:13.5px; color:var(--text); line-height:1.5; }
+  .info-box.accent-blue { border-left:3px solid var(--ms-blue); }
+  .info-box.accent-purple { border-left:3px solid var(--ms-purple); }
+  .info-box.accent-teal { border-left:3px solid var(--ms-teal); }
+  .info-box.accent-green { border-left:3px solid var(--ms-green); }
+  .info-box.accent-orange { border-left:3px solid var(--ms-orange); }
+  .info-box.accent-cyan { border-left:3px solid var(--ai-cyan); }
+  .exam-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:20px 0; }
+  .stat-box { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px; text-align:center; box-shadow:var(--shadow); }
+  .stat-box .num { font-size:2em; font-weight:800; color:var(--ai-cyan); }
+  .stat-box .label { font-size:11px; font-weight:600; color:var(--sub); text-transform:uppercase; letter-spacing:0.8px; margin-top:4px; }
+  .exam-tip { background:var(--exam-yellow); border-left:5px solid var(--exam-border); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 18px; margin:14px 0; }
+  .exam-tip .tip-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#7A6800; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .exam-tip ul,.exam-tip p { font-size:13.5px; color:#3A3000; }
+  .exam-tip ul { padding-left:18px; } .exam-tip li { margin:4px 0; }
+  .tip-box { background:var(--ms-green-light); border-left:5px solid var(--ms-green); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 18px; margin:14px 0; }
+  .tip-box .tip-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#0B5E0B; margin-bottom:6px; }
+  .tip-box ul,.tip-box p { font-size:13.5px; color:#0B3D0B; }
+  .tip-box ul { padding-left:18px; } .tip-box li { margin:4px 0; }
+  .warn-box { background:var(--warn-bg); border-left:5px solid var(--warn-border); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 18px; margin:14px 0; }
+  .warn-box p,.warn-box ul { font-size:13.5px; color:#5A0000; }
+  .warn-box ul { padding-left:18px; } .warn-box li { margin:4px 0; }
+  .ptr { background:linear-gradient(135deg,#1B1464 0%,#00B4D8 100%); color:white; border-radius:var(--radius); padding:18px 22px; margin:16px 0; }
+  .ptr h4 { font-size:0.95em; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .ptr ul { list-style:none; padding:0; }
+  .ptr ul li { padding:5px 0 5px 24px; font-size:13.5px; position:relative; opacity:0.95; border-bottom:1px solid rgba(255,255,255,0.1); }
+  .ptr ul li:last-child { border-bottom:none; }
+  .ptr ul li::before { content:"★"; position:absolute; left:0; color:#FFD700; font-size:12px; }
+  .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:14px 0; }
+  .compare-box { border-radius:var(--radius-sm); padding:16px; border:1px solid var(--border); }
+  .compare-box.blue { background:var(--ms-light); border-color:#A0C4E8; }
+  .compare-box.purple { background:var(--ms-purple-light); border-color:#C4A8E0; }
+  .compare-box.teal { background:var(--ms-teal-light); border-color:#80C8C0; }
+  .compare-box.cyan { background:var(--ai-cyan-light); border-color:#80D8E8; }
+  .compare-box h4 { font-size:13.5px; font-weight:700; margin-bottom:10px; }
+  .compare-box.blue h4 { color:var(--ms-blue); } .compare-box.purple h4 { color:var(--ms-purple); }
+  .compare-box.teal h4 { color:var(--ms-teal); } .compare-box.cyan h4 { color:var(--ai-cyan); }
+  .compare-box ul { padding-left:18px; font-size:13px; } .compare-box ul li { margin:4px 0; }
+  .flow { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:14px 0; }
+  .flow-step { background:var(--ms-light); border:2px solid var(--ms-blue); border-radius:var(--radius-sm); padding:7px 13px; font-size:13px; font-weight:600; color:var(--ms-dark); text-align:center; }
+  .flow-step.cyan { background:var(--ai-cyan-light); border-color:var(--ai-cyan); color:var(--ai-cyan); }
+  .flow-arrow { font-size:18px; color:var(--ms-blue); }
+  .cheat-bg { background:linear-gradient(135deg,#1B1464 0%,#00B4D8 100%); color:white; border-radius:14px; padding:28px; margin:20px 0; }
+  .cheat-bg h3 { font-size:1.2em; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .cs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; }
+  .cs-item { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); border-radius:var(--radius-sm); padding:12px; font-size:13px; }
+  .cs-item strong { display:block; margin-bottom:4px; color:#FFD700; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
+  .traps-card { background:white; border-radius:var(--radius); border:1px solid var(--border); overflow:hidden; margin:16px 0; box-shadow:var(--shadow); }
+  .traps-card .traps-head { background:linear-gradient(90deg,#A80000,#CA5010); padding:13px 20px; display:flex; align-items:center; gap:10px; color:white; }
+  .traps-card .traps-head h4 { font-size:1em; font-weight:700; }
+  .traps-card .traps-body { padding:20px; }
+  .traps-card .trap { padding:10px 0; border-bottom:1px solid #F3F3F3; font-size:13.5px; }
+  .false { color:#A80000; font-weight:700; } .correct { color:#107C10; font-weight:700; }
+  .ul.std { padding-left:18px; font-size:13.5px; } .ul.std li { margin:4px 0; }
+  ul.std { padding-left:18px; font-size:13.5px; } ul.std li { margin:4px 0; }
+  .back-btn { display:inline-flex; align-items:center; gap:6px; padding:7px 16px; background:white; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:13px; font-weight:600; color:var(--ms-blue); text-decoration:none; margin:16px 0 0; transition:all 0.2s; }
+  .back-btn:hover { background:var(--ms-light); }
+  .must-know-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:10px; }
+  .must-know-item { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px; }
+  .mk-q { font-size:11.5px; font-weight:700; color:var(--sub); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px; }
+  .mk-a { font-size:13.5px; color:var(--text); }
+</style>
+</head>
+<body>
+
+<div class="sticky-nav">
+  <div class="sticky-nav-inner">
+    <span class="nav-logo">AI-900</span>
+    <div class="nav-sep"></div>
+    <a href="#overview" class="nav-tag">Overview</a>
+    <a href="#workloads" class="nav-tag">AI Workloads</a>
+    <a href="#ml" class="nav-tag">Machine Learning</a>
+    <a href="#vision" class="nav-tag">Computer Vision</a>
+    <a href="#nlp" class="nav-tag">NLP</a>
+    <a href="#genai" class="nav-tag">Generative AI</a>
+    <a href="#responsible" class="nav-tag">Responsible AI</a>
+    <a href="#cheatsheet" class="nav-tag">Cheat Sheet</a>
+    <a href="#traps" class="nav-tag">Exam Traps</a>
+  </div>
+</div>
+
+<div class="cover" id="overview">
+  <div class="pill-top">Microsoft Certification · AI-900</div>
+  <h1>Azure AI Fundamentals</h1>
+  <p class="subtitle">Complete exam notes covering AI workloads, machine learning, computer vision, NLP, and generative AI on Azure.</p>
+  <div class="pills">
+    <span class="pill">📊 Domain 1: AI Workloads & Concepts — 20–25%</span>
+    <span class="pill">🤖 Domain 2: Machine Learning — 25–30%</span>
+    <span class="pill">👁️ Domain 3: Computer Vision — 15–20%</span>
+    <span class="pill">💬 Domain 4: NLP — 15–20%</span>
+    <span class="pill">✨ Domain 5: Generative AI — 15–20%</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Back to Learning Hub</a>
+  <div class="exam-stats">
+    <div class="stat-box"><div class="num">~45</div><div class="label">Questions</div></div>
+    <div class="stat-box"><div class="num">45</div><div class="label">Minutes</div></div>
+    <div class="stat-box"><div class="num">700</div><div class="label">Pass Score</div></div>
+    <div class="stat-box"><div class="num">5</div><div class="label">Domains</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head cyan"><div class="ch-icon">🎯</div><h4>Exam At a Glance</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-cyan"><div class="lbl">Exam Code</div><div class="val">AI-900</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Full Name</div><div class="val">Microsoft Azure AI Fundamentals</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Level</div><div class="val">Fundamentals (no prerequisites)</div></div>
+        <div class="info-box accent-green"><div class="lbl">Renewal</div><div class="val">Free online renewal annually</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOMAIN 1: AI WORKLOADS -->
+<div id="workloads" class="domain-header dh-cyan">
+  <div class="dh-icon">🧠</div>
+  <h2>Domain 1 — AI Workloads &amp; Concepts</h2>
+  <span class="dh-badge">20–25%</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head cyan"><div class="ch-icon">⚡</div><h4>Common AI Workloads</h4></div>
+    <div class="card-body">
+      <table class="cyan">
+        <tr><th>Workload Type</th><th>Description</th><th>Azure Service Example</th></tr>
+        <tr><td><strong>Machine Learning</strong></td><td>Training models on data to make predictions</td><td>Azure Machine Learning</td></tr>
+        <tr><td><strong>Computer Vision</strong></td><td>Interpreting and analysing images and video</td><td>Azure AI Vision</td></tr>
+        <tr><td><strong>Natural Language Processing</strong></td><td>Understanding and generating human language</td><td>Azure AI Language</td></tr>
+        <tr><td><strong>Document Intelligence</strong></td><td>Extracting structured data from documents/forms</td><td>Azure AI Document Intelligence</td></tr>
+        <tr><td><strong>Knowledge Mining</strong></td><td>Searching and extracting insights from unstructured content</td><td>Azure AI Search</td></tr>
+        <tr><td><strong>Generative AI</strong></td><td>Creating new content (text, images, code) using large language models</td><td>Azure OpenAI Service</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🏗️</div><h4>AI vs ML vs Deep Learning — The Hierarchy</h4></div>
+    <div class="card-body">
+      <div class="flow">
+        <div class="flow-step" style="background:#EFF6FC;border-color:#0078D4;">AI (Broad field)</div>
+        <div class="flow-arrow">⊃</div>
+        <div class="flow-step cyan">Machine Learning (Subset of AI)</div>
+        <div class="flow-arrow">⊃</div>
+        <div class="flow-step" style="background:#F4EFF9;border-color:#5C2D91;color:#5C2D91;">Deep Learning (Subset of ML)</div>
+        <div class="flow-arrow">⊃</div>
+        <div class="flow-step" style="background:#DFF6DD;border-color:#107C10;color:#107C10;">Gen AI (Subset of DL)</div>
+      </div>
+      <p class="body-text">AI encompasses all systems that mimic human intelligence. ML learns from data. Deep learning uses neural networks with many layers. Generative AI uses foundation models (LLMs) to generate content.</p>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — AI Concepts</h4>
+    <ul>
+      <li><strong>AI</strong> = computers that mimic human decision-making</li>
+      <li><strong>Machine Learning</strong> = teaches computers by providing examples (training data)</li>
+      <li><strong>Deep Learning</strong> = multi-layer neural networks, basis of modern AI</li>
+      <li><strong>Generative AI</strong> = AI that generates NEW content (text, images, code, audio)</li>
+      <li>Azure AI Services = pre-built APIs; Azure ML = build-your-own models</li>
+    </ul>
+  </div>
+</div>
+
+<!-- DOMAIN 2: MACHINE LEARNING -->
+<div id="ml" class="domain-header dh-purple">
+  <div class="dh-icon">🤖</div>
+  <h2>Domain 2 — Machine Learning on Azure</h2>
+  <span class="dh-badge">25–30%</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">📊</div><h4>Types of Machine Learning</h4></div>
+    <div class="card-body">
+      <table class="purple">
+        <tr><th>Type</th><th>How It Works</th><th>Example Use Case</th></tr>
+        <tr><td><strong>Supervised Learning</strong></td><td>Learns from labelled training data (input + correct output)</td><td>Email spam detection, house price prediction</td></tr>
+        <tr><td><strong>Unsupervised Learning</strong></td><td>Finds patterns in unlabelled data</td><td>Customer segmentation, anomaly detection</td></tr>
+        <tr><td><strong>Reinforcement Learning</strong></td><td>Agent learns by trial and error, rewarded for correct actions</td><td>Game playing AI, robot navigation</td></tr>
+      </table>
+      <div class="compare-grid" style="margin-top:14px;">
+        <div class="compare-box blue">
+          <h4>Regression</h4>
+          <ul class="std"><li>Predicts a <strong>numeric value</strong></li><li>Example: "How much will this house cost?"</li><li>Output: continuous number (£350,000)</li></ul>
+        </div>
+        <div class="compare-box purple">
+          <h4>Classification</h4>
+          <ul class="std"><li>Predicts a <strong>category/class</strong></li><li>Example: "Is this email spam or not?"</li><li>Binary (2 classes) or multi-class (many)</li></ul>
+        </div>
+        <div class="compare-box cyan">
+          <h4>Clustering</h4>
+          <ul class="std"><li><strong>Unsupervised</strong> — groups similar items</li><li>Example: "Group these customers by behaviour"</li><li>No labels needed — patterns emerge</li></ul>
+        </div>
+        <div class="compare-box teal">
+          <h4>Anomaly Detection</h4>
+          <ul class="std"><li>Identifies <strong>unusual patterns</strong></li><li>Example: "Flag this unusual bank transaction"</li><li>Used for fraud detection, quality control</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🎯</div><h4>Azure Machine Learning — Key Concepts</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-purple"><div class="lbl">Azure ML Studio</div><div class="val">Web-based IDE for building, training and deploying ML models</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Automated ML (AutoML)</div><div class="val">Automatically tests multiple algorithms and selects the best model</div></div>
+        <div class="info-box accent-teal"><div class="lbl">Designer</div><div class="val">Drag-and-drop visual pipeline builder for no-code ML</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Compute Clusters</div><div class="val">Scalable compute for training; shut down when idle to save cost</div></div>
+        <div class="info-box accent-green"><div class="lbl">Endpoints</div><div class="val">Deploy trained models as REST APIs for real-time or batch inference</div></div>
+        <div class="info-box accent-cyan"><div class="lbl">MLflow</div><div class="val">Open-source tool integrated with Azure ML for experiment tracking</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">📈</div><h4>Model Evaluation Metrics — Know the Difference</h4></div>
+    <div class="card-body">
+      <table>
+        <tr><th>Metric</th><th>Used For</th><th>Definition</th></tr>
+        <tr><td><strong>Mean Absolute Error (MAE)</strong></td><td>Regression</td><td>Average absolute difference between predicted and actual values</td></tr>
+        <tr><td><strong>Root Mean Square Error (RMSE)</strong></td><td>Regression</td><td>Square root of average squared errors — penalises large errors more</td></tr>
+        <tr><td><strong>R² (Coefficient of Determination)</strong></td><td>Regression</td><td>How well model explains variance; 1.0 = perfect, 0 = no better than mean</td></tr>
+        <tr><td><strong>Accuracy</strong></td><td>Classification</td><td>% of correct predictions out of all predictions</td></tr>
+        <tr><td><strong>Precision</strong></td><td>Classification</td><td>Of predicted positives, how many are actually positive</td></tr>
+        <tr><td><strong>Recall (Sensitivity)</strong></td><td>Classification</td><td>Of actual positives, how many did we correctly identify</td></tr>
+        <tr><td><strong>F1 Score</strong></td><td>Classification</td><td>Harmonic mean of Precision and Recall — balance metric</td></tr>
+        <tr><td><strong>AUC-ROC</strong></td><td>Classification</td><td>Area under ROC curve; 1.0 = perfect, 0.5 = random guessing</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="exam-tip">
+    <div class="tip-label">⭐ Exam Tip — Regression vs Classification Metrics</div>
+    <ul><li>Regression = numeric prediction → use MAE, RMSE, R²</li><li>Classification = category prediction → use Accuracy, Precision, Recall, F1, AUC</li><li>If asked "which model is better?" for classification → higher F1/AUC is generally better</li></ul>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Azure ML</h4>
+    <ul>
+      <li><strong>AutoML</strong> tries many algorithms automatically — saves time, no ML expertise needed</li>
+      <li><strong>Designer</strong> = drag-and-drop, no code needed; great for experimenting</li>
+      <li>Model training = Compute Cluster; Real-time inference = Compute Instance or managed endpoint</li>
+      <li><strong>Overfitting</strong> = model memorised training data, fails on new data; fix with more data or regularisation</li>
+      <li><strong>Feature engineering</strong> = selecting/transforming input variables to improve model performance</li>
+    </ul>
+  </div>
+</div>
+
+<!-- DOMAIN 3: COMPUTER VISION -->
+<div id="vision" class="domain-header dh-teal">
+  <div class="dh-icon">👁️</div>
+  <h2>Domain 3 — Computer Vision on Azure</h2>
+  <span class="dh-badge">15–20%</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head teal"><div class="ch-icon">🔍</div><h4>Azure AI Vision — Core Capabilities</h4></div>
+    <div class="card-body">
+      <table class="teal">
+        <tr><th>Capability</th><th>Description</th><th>Example</th></tr>
+        <tr><td><strong>Image Analysis</strong></td><td>Detect objects, scenes, activities, and generate captions</td><td>Identify "a cat sitting on a chair"</td></tr>
+        <tr><td><strong>Object Detection</strong></td><td>Identify objects AND their location (bounding boxes)</td><td>Find all cars in a traffic image with coordinates</td></tr>
+        <tr><td><strong>Image Classification</strong></td><td>Categorise the entire image into a class</td><td>"This is a photo of a dog"</td></tr>
+        <tr><td><strong>Facial Analysis</strong></td><td>Detect faces, emotions, age estimation</td><td>Count people in a room</td></tr>
+        <tr><td><strong>Optical Character Recognition (OCR)</strong></td><td>Extract text from images and documents</td><td>Read a street sign, extract text from a photo</td></tr>
+        <tr><td><strong>Spatial Analysis</strong></td><td>Analyse people's movements in video</td><td>Monitor social distancing in real-time video</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head teal"><div class="ch-icon">📄</div><h4>Azure AI Document Intelligence (Form Recognizer)</h4></div>
+    <div class="card-body">
+      <p class="body-text">Extracts structured data from forms, receipts, invoices, ID cards and documents. Uses prebuilt models for common document types or custom models for specific layouts.</p>
+      <div class="compare-grid">
+        <div class="compare-box teal">
+          <h4>Prebuilt Models</h4>
+          <ul class="std"><li>Receipt → total, items, merchant, date</li><li>Invoice → vendor, line items, amounts</li><li>ID Document → name, DOB, ID number</li><li>Business Card → name, company, phone</li></ul>
+        </div>
+        <div class="compare-box blue">
+          <h4>Custom Models</h4>
+          <ul class="std"><li>Train on your own documents</li><li>Label fields manually in AI Studio</li><li>Need at least 5 sample documents</li><li>Good for unique form layouts</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🔎</div><h4>Azure AI Search (Knowledge Mining)</h4></div>
+    <div class="card-body">
+      <p class="body-text">Extracts and indexes insights from large volumes of unstructured content (PDFs, images, audio) using an <strong>enrichment pipeline</strong> powered by Azure AI Skills.</p>
+      <div class="flow">
+        <div class="flow-step">Data Source (Blob, SQL)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step cyan">Indexer (crawls data)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:#F4EFF9;border-color:#5C2D91;color:#5C2D91;">Skillset (AI enrichment)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:#EFF9F8;border-color:#008272;color:#008272;">Search Index (queryable)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Computer Vision</h4>
+    <ul>
+      <li><strong>OCR</strong> = extracting text from images (read tool in Azure AI Vision)</li>
+      <li><strong>Object Detection</strong> adds bounding box coordinates; Image Classification does not</li>
+      <li><strong>Custom Vision</strong> = Azure AI Vision service for training custom image classifiers and object detectors</li>
+      <li>Azure AI Document Intelligence = formerly Form Recognizer (same service, renamed)</li>
+      <li>Azure AI Search = indexed search + AI enrichment pipeline (skills)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- DOMAIN 4: NLP -->
+<div id="nlp" class="domain-header dh-cyan">
+  <div class="dh-icon">💬</div>
+  <h2>Domain 4 — Natural Language Processing</h2>
+  <span class="dh-badge">15–20%</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head cyan"><div class="ch-icon">🗣️</div><h4>Azure AI Language — Core Capabilities</h4></div>
+    <div class="card-body">
+      <table class="cyan">
+        <tr><th>Feature</th><th>Description</th><th>Example</th></tr>
+        <tr><td><strong>Sentiment Analysis</strong></td><td>Determines if text is positive, negative, neutral, or mixed</td><td>"I love this product" → Positive (95%)</td></tr>
+        <tr><td><strong>Key Phrase Extraction</strong></td><td>Identifies the main topics/concepts in text</td><td>"Azure AI is powerful" → [Azure AI, powerful]</td></tr>
+        <tr><td><strong>Named Entity Recognition (NER)</strong></td><td>Identifies people, places, organisations, dates in text</td><td>"Microsoft in Seattle" → Org=Microsoft, Loc=Seattle</td></tr>
+        <tr><td><strong>Language Detection</strong></td><td>Identifies what language text is written in</td><td>"Bonjour" → French (99%)</td></tr>
+        <tr><td><strong>Text Summarisation</strong></td><td>Extracts or abstracts key information from long documents</td><td>Condense a 10-page report to 3 bullet points</td></tr>
+        <tr><td><strong>Question Answering</strong></td><td>Builds KB from documents to answer natural language questions</td><td>FAQ bot that answers from product manual</td></tr>
+        <tr><td><strong>Custom Text Classification</strong></td><td>Train model to classify text into your categories</td><td>Route support tickets to the right team</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🤖</div><h4>Azure AI Bot Service &amp; Language Understanding</h4></div>
+    <div class="card-body">
+      <div class="compare-grid">
+        <div class="compare-box purple">
+          <h4>Azure AI Bot Service</h4>
+          <ul class="std"><li>Framework for building conversational bots</li><li>Integrates with Teams, WhatsApp, web chat, etc.</li><li>Uses CLU or Question Answering for language understanding</li><li>Power Virtual Agents = low-code bot builder (now Microsoft Copilot Studio)</li></ul>
+        </div>
+        <div class="compare-box cyan">
+          <h4>Conversational Language Understanding (CLU)</h4>
+          <ul class="std"><li>Understands user <strong>intent</strong> and <strong>entities</strong> in natural language</li><li>Train with example utterances per intent</li><li>Example: "Book a flight to London" → Intent=BookFlight, Entity=London</li><li>Successor to LUIS (Language Understanding Intelligent Service)</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head teal"><div class="ch-icon">🔊</div><h4>Azure AI Speech Services</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-teal"><div class="lbl">Speech-to-Text (STT)</div><div class="val">Converts spoken audio to written text — transcription, live captions</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Text-to-Speech (TTS)</div><div class="val">Converts written text into spoken audio — natural-sounding neural voices</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Speech Translation</div><div class="val">Translates spoken language in real-time across 90+ languages</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Speaker Recognition</div><div class="val">Identifies who is speaking based on voice biometrics</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — NLP</h4>
+    <ul>
+      <li><strong>Azure AI Translator</strong> = text translation; <strong>Azure AI Speech Translation</strong> = spoken language translation</li>
+      <li>Question Answering project = create FAQ from docs; no ML training needed for extraction mode</li>
+      <li>CLU replaces LUIS — same concepts (intents + entities) but newer service name</li>
+      <li>Sentiment Analysis returns a score AND a label (Positive/Negative/Neutral/Mixed)</li>
+      <li>NER identifies real-world entities: Person, Organisation, Location, DateTime, Quantity</li>
+    </ul>
+  </div>
+</div>
+
+<!-- DOMAIN 5: GENERATIVE AI -->
+<div id="genai" class="domain-header dh-dark">
+  <div class="dh-icon">✨</div>
+  <h2>Domain 5 — Generative AI on Azure</h2>
+  <span class="dh-badge">15–20%</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🧠</div><h4>Large Language Models (LLMs) — Core Concepts</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-blue"><div class="lbl">LLM</div><div class="val">Large Language Model — trained on massive text data to predict and generate text</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Foundation Model</div><div class="val">Pretrained model (GPT-4, etc.) used as base for many downstream tasks</div></div>
+        <div class="info-box accent-cyan"><div class="lbl">Token</div><div class="val">Smallest unit of text an LLM processes; roughly ¾ of a word on average</div></div>
+        <div class="info-box accent-teal"><div class="lbl">Context Window</div><div class="val">Max tokens the model can consider in one interaction (input + output)</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Prompt</div><div class="val">The input text/instruction sent to the model</div></div>
+        <div class="info-box accent-green"><div class="lbl">Completion</div><div class="val">The model's generated response to a prompt</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head cyan"><div class="ch-icon">⚙️</div><h4>Azure OpenAI Service</h4></div>
+    <div class="card-body">
+      <p class="body-text">Azure OpenAI Service provides REST API access to OpenAI's powerful models (GPT-4, DALL-E, Whisper, Embeddings) with Azure's enterprise security, compliance, and regional deployment.</p>
+      <div class="compare-grid">
+        <div class="compare-box blue">
+          <h4>Models Available</h4>
+          <ul class="std"><li><strong>GPT-4 / GPT-3.5</strong> = text generation &amp; chat</li><li><strong>DALL-E</strong> = image generation from text</li><li><strong>Whisper</strong> = speech-to-text</li><li><strong>Embeddings</strong> = semantic search &amp; similarity</li></ul>
+        </div>
+        <div class="compare-box cyan">
+          <h4>Azure vs OpenAI.com</h4>
+          <ul class="std"><li>Same models, different infrastructure</li><li>Azure = private deployment in your region</li><li>Data stays within Azure — NOT used for training</li><li>Enterprise compliance (SOC 2, HIPAA, etc.)</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">💡</div><h4>Prompt Engineering — Key Techniques</h4></div>
+    <div class="card-body">
+      <table class="purple">
+        <tr><th>Technique</th><th>Description</th><th>When to Use</th></tr>
+        <tr><td><strong>Zero-Shot</strong></td><td>No examples — just the task description</td><td>Simple tasks, general instructions</td></tr>
+        <tr><td><strong>Few-Shot</strong></td><td>Include 2–5 examples in the prompt</td><td>Specific format, tone, or pattern needed</td></tr>
+        <tr><td><strong>Chain-of-Thought (CoT)</strong></td><td>Ask model to "think step by step"</td><td>Math problems, reasoning, multi-step logic</td></tr>
+        <tr><td><strong>System Prompt</strong></td><td>Instructions that define model's behaviour/persona</td><td>Chatbots, consistent tone, constraints</td></tr>
+      </table>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Exam Tip</div>
+        <p>Grounding = providing specific facts/documents in the prompt so the model answers based on real data, not general training (this is the basis of RAG — Retrieval Augmented Generation)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head teal"><div class="ch-icon">🏗️</div><h4>Copilot &amp; AI Applications on Azure</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-teal"><div class="lbl">Microsoft Copilot</div><div class="val">AI assistant integrated into M365 apps (Word, Excel, Teams) using Azure OpenAI</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Azure AI Foundry</div><div class="val">Platform for building, testing and deploying custom AI/Copilot solutions</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Copilot Studio</div><div class="val">Low-code tool to create custom Copilots and AI agents without deep ML knowledge</div></div>
+        <div class="info-box accent-cyan"><div class="lbl">RAG Pattern</div><div class="val">Retrieval Augmented Generation — combine LLM with your own data via Azure AI Search</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESPONSIBLE AI -->
+<div id="responsible" class="domain-header dh-purple">
+  <div class="dh-icon">⚖️</div>
+  <h2>Responsible AI — Microsoft's 6 Principles</h2>
+  <span class="dh-badge">Always on exam</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🎯</div><h4>The 6 Principles of Responsible AI (Memorise These)</h4></div>
+    <div class="card-body">
+      <table class="purple">
+        <tr><th>Principle</th><th>What it Means</th><th>Example</th></tr>
+        <tr><td><strong>Fairness</strong></td><td>AI should treat all people fairly, without bias or discrimination</td><td>Loan approval model tested across demographic groups</td></tr>
+        <tr><td><strong>Reliability &amp; Safety</strong></td><td>AI should work reliably and safely; fail gracefully</td><td>Autonomous vehicle tested extensively before deployment</td></tr>
+        <tr><td><strong>Privacy &amp; Security</strong></td><td>AI should protect personal data and resist attacks</td><td>Model trained on anonymised data; secure APIs</td></tr>
+        <tr><td><strong>Inclusiveness</strong></td><td>AI should empower everyone, including people with disabilities</td><td>Screen reader support, multi-language, accessibility features</td></tr>
+        <tr><td><strong>Transparency</strong></td><td>AI systems should be explainable and understandable</td><td>Explaining why a loan was declined by the model</td></tr>
+        <tr><td><strong>Accountability</strong></td><td>People should be responsible for AI systems and their outcomes</td><td>Human review required before AI-generated medical diagnosis</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Responsible AI — Never Forget</h4>
+    <ul>
+      <li>All 6 principles: <strong>Fairness · Reliability &amp; Safety · Privacy &amp; Security · Inclusiveness · Transparency · Accountability</strong></li>
+      <li><strong>Transparency</strong> ≠ making source code public — it means making AI decisions explainable</li>
+      <li><strong>Accountability</strong> = humans remain responsible for AI outputs, even when AI makes decisions</li>
+      <li>Microsoft AI Principles apply to Azure OpenAI Service — responsible use policies enforced</li>
+      <li>Content filters in Azure OpenAI block harmful content (hate speech, violence, self-harm, sexual)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CHEAT SHEET -->
+<div id="cheatsheet" class="domain-header dh-dark">
+  <div class="dh-icon">⚡</div>
+  <h2>Quick-Fire Cheat Sheet</h2>
+</div>
+<div class="wrap">
+  <div class="cheat-bg">
+    <h3>🎯 Scenario → Correct Azure Service</h3>
+    <div class="cs-grid">
+      <div class="cs-item"><strong>Extract text from scanned document</strong>Azure AI Vision — OCR (Read API)</div>
+      <div class="cs-item"><strong>Identify objects + their location in image</strong>Azure AI Vision — Object Detection</div>
+      <div class="cs-item"><strong>Build a custom image classifier</strong>Azure AI Vision — Custom Vision</div>
+      <div class="cs-item"><strong>Extract structured data from invoices/receipts</strong>Azure AI Document Intelligence</div>
+      <div class="cs-item"><strong>Determine if customer review is positive/negative</strong>Azure AI Language — Sentiment Analysis</div>
+      <div class="cs-item"><strong>Find people, places, companies in text</strong>Azure AI Language — Named Entity Recognition</div>
+      <div class="cs-item"><strong>Build an FAQ bot from documents</strong>Azure AI Language — Question Answering</div>
+      <div class="cs-item"><strong>Understand user intent in natural language</strong>Azure AI Language — CLU (Conversational Language Understanding)</div>
+      <div class="cs-item"><strong>Translate speech in real-time</strong>Azure AI Speech — Speech Translation</div>
+      <div class="cs-item"><strong>Convert audio call to text transcript</strong>Azure AI Speech — Speech-to-Text</div>
+      <div class="cs-item"><strong>Search through thousands of unstructured documents</strong>Azure AI Search (Knowledge Mining)</div>
+      <div class="cs-item"><strong>Generate text/code using a large language model</strong>Azure OpenAI Service — GPT model</div>
+      <div class="cs-item"><strong>Generate an image from text description</strong>Azure OpenAI Service — DALL-E</div>
+      <div class="cs-item"><strong>Build custom AI app with your own data</strong>Azure AI Foundry + Azure AI Search (RAG)</div>
+      <div class="cs-item"><strong>Predict a numeric value (price, score)</strong>Machine Learning — Regression</div>
+      <div class="cs-item"><strong>Group customers by behaviour without labels</strong>Machine Learning — Clustering (Unsupervised)</div>
+      <div class="cs-item"><strong>Detect fraud or unusual transactions</strong>Machine Learning — Anomaly Detection</div>
+      <div class="cs-item"><strong>Try multiple ML algorithms automatically</strong>Azure Machine Learning — AutoML</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🧠</div><h4>MUST-KNOW Facts — These Appear on Every Sitting</h4></div>
+    <div class="card-body">
+      <div class="must-know-grid">
+        <div class="must-know-item"><div class="mk-q">AI vs ML vs Deep Learning</div><div class="mk-a">AI ⊃ ML ⊃ Deep Learning ⊃ Generative AI (nested hierarchy)</div></div>
+        <div class="must-know-item"><div class="mk-q">Supervised vs Unsupervised</div><div class="mk-a">Supervised = labelled data; Unsupervised = no labels (clustering)</div></div>
+        <div class="must-know-item"><div class="mk-q">Regression vs Classification</div><div class="mk-a">Regression = number; Classification = category</div></div>
+        <div class="must-know-item"><div class="mk-q">OCR service in Azure</div><div class="mk-a">Azure AI Vision — Read API (also called OCR)</div></div>
+        <div class="must-know-item"><div class="mk-q">Azure AI Document Intelligence was called?</div><div class="mk-a">Form Recognizer (old name — same service)</div></div>
+        <div class="must-know-item"><div class="mk-q">CLU replaced which service?</div><div class="mk-a">LUIS (Language Understanding Intelligent Service)</div></div>
+        <div class="must-know-item"><div class="mk-q">Does Azure OpenAI train on your data?</div><div class="mk-a">NO — your prompts/responses are NOT used for model training</div></div>
+        <div class="must-know-item"><div class="mk-q">RAG stands for?</div><div class="mk-a">Retrieval Augmented Generation — grounds LLM with your own data</div></div>
+        <div class="must-know-item"><div class="mk-q">Responsible AI principles count</div><div class="mk-a">6 principles: Fairness, Reliability &amp; Safety, Privacy &amp; Security, Inclusiveness, Transparency, Accountability</div></div>
+        <div class="must-know-item"><div class="mk-q">What is grounding in AI?</div><div class="mk-a">Providing factual data/context in prompt so model answers based on real information</div></div>
+        <div class="must-know-item"><div class="mk-q">Azure AI Foundry purpose</div><div class="mk-a">Platform for building, testing and deploying custom AI solutions</div></div>
+        <div class="must-know-item"><div class="mk-q">AUC-ROC value range</div><div class="mk-a">0 to 1; 0.5 = random, 1.0 = perfect classifier</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXAM TRAPS -->
+<div id="traps" class="wrap" style="padding-top:8px;">
+  <div class="traps-card">
+    <div class="traps-head"><div style="font-size:1.4em;">⚠️</div><h4>Common Exam Traps — Don't Fall For These</h4></div>
+    <div class="traps-body">
+      <div class="trap"><span class="false">❌ TRAP:</span> "Image Classification and Object Detection are the same"<br><span class="correct">✅ CORRECT:</span> Classification = whole image gets a label. Object Detection = individual objects identified WITH their bounding box location.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "Regression predicts a category, Classification predicts a number"<br><span class="correct">✅ CORRECT:</span> OPPOSITE. Regression = numeric output (price, temperature). Classification = category (spam/not spam, dog/cat).</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "Azure OpenAI uses your data to retrain its models"<br><span class="correct">✅ CORRECT:</span> Microsoft guarantees your data is NOT used for training. Your prompts stay private within your Azure subscription.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "LUIS is still the recommended NLU service"<br><span class="correct">✅ CORRECT:</span> LUIS is deprecated. The current service is CLU (Conversational Language Understanding) within Azure AI Language.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "Transparency means publishing the AI source code"<br><span class="correct">✅ CORRECT:</span> Transparency = making AI decisions understandable and explainable to users. It does NOT mean open-sourcing everything.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "Unsupervised learning uses labelled training data"<br><span class="correct">✅ CORRECT:</span> Unsupervised = NO labels. The algorithm finds patterns on its own. Supervised = labelled data with correct answers.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "Azure AI Search is just a search engine like Google"<br><span class="correct">✅ CORRECT:</span> Azure AI Search includes an AI enrichment pipeline (skills) that can extract entities, translate, and index insights from unstructured data.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "Form Recognizer and Azure AI Document Intelligence are different services"<br><span class="correct">✅ CORRECT:</span> They are the SAME service — Form Recognizer was renamed to Azure AI Document Intelligence.</div>
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#00B4D8,#5C2D91);color:white;border-radius:14px;padding:32px;text-align:center;margin:24px 0 8px;">
+    <div style="font-size:2.5em;margin-bottom:10px;">🎯</div>
+    <h3 style="font-size:1.5em;margin-bottom:10px;letter-spacing:-0.3px;">Ready for Exam Day!</h3>
+    <p style="opacity:0.9;font-size:14px;max-width:620px;margin:0 auto 20px;line-height:1.7;">AI-900 tests <strong>breadth over depth</strong>. Know WHAT each service does and WHEN to use it. Focus on the responsible AI principles (all 6!) and the scenario-to-service mapping in the cheat sheet above.</p>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;font-size:13px;">
+      <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:9px 18px;">📝 Pass score: 700 / 1000</div>
+      <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:9px 18px;">📚 Official study: Microsoft Learn</div>
+      <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:9px 18px;">⬆️ <a href="#overview" style="color:white;">Back to top</a></div>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:#888;font-size:12px;padding-bottom:24px;"><a href="../index.html" style="color:#0078D4;">← Back to Learning Hub</a> &nbsp;|&nbsp; Last updated: April 2026</p>
+</div>
+
+</body>
+</html>
