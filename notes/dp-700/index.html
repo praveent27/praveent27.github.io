@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DP-700 Complete Exam Guide — Implement Data Engineering Solutions Using Microsoft Fabric</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --ms-blue:#0078D4; --ms-dark:#005A9E; --ms-light:#EFF6FC; --ms-purple:#5C2D91;
+    --ms-purple-light:#F4EFF9; --ms-teal:#008272; --ms-teal-light:#EFF9F8;
+    --ms-red:#A80000; --ms-orange:#CA5010; --ms-green:#107C10; --ms-green-light:#DFF6DD;
+    --dp7:#FF6B9D; --dp7-light:#FFF0F6;
+    --exam-yellow:#FFF4CE; --exam-border:#FFB900; --warn-bg:#FDE7E9; --warn-border:#A80000;
+    --bg:#F8F9FA; --card:#FFFFFF; --text:#201F1E; --sub:#605E5C; --border:#E1DFDD;
+    --shadow:0 2px 10px rgba(0,0,0,0.07); --radius:12px; --radius-sm:8px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Outfit','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:14px;-webkit-font-smoothing:antialiased;}
+  a{color:var(--ms-blue);text-decoration:none;}
+  code{font-family:'JetBrains Mono',monospace;background:#E8ECF1;padding:2px 6px;border-radius:4px;font-size:12px;color:var(--ms-blue);}
+  .sticky-nav{position:sticky;top:0;background:rgba(180,30,90,0.97);backdrop-filter:blur(8px);z-index:100;padding:0 32px;border-bottom:1px solid rgba(255,255,255,0.15);}
+  .sticky-nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:52px;gap:6px;overflow-x:auto;scrollbar-width:none;}
+  .sticky-nav-inner::-webkit-scrollbar{display:none;}
+  .nav-tag{white-space:nowrap;padding:5px 14px;border-radius:50px;font-size:12.5px;font-weight:600;color:rgba(255,255,255,0.75);transition:all 0.2s;border:1px solid transparent;cursor:pointer;}
+  .nav-tag:hover{color:white;border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);}
+  .nav-logo{font-weight:700;color:white;font-size:13px;margin-right:8px;white-space:nowrap;flex-shrink:0;}
+  .nav-sep{width:1px;height:20px;background:rgba(255,255,255,0.2);flex-shrink:0;}
+  .cover{background:linear-gradient(135deg,#C0187E 0%,#5C2D91 50%,#1B1464 100%);color:white;padding:64px 40px 56px;text-align:center;position:relative;overflow:hidden;}
+  .cover::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.04);}
+  .cover::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.04);}
+  .cover .pill-top{display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);border-radius:50px;padding:5px 18px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;}
+  .cover h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1.15;margin-bottom:10px;}
+  .cover .subtitle{font-size:16px;opacity:0.88;margin-bottom:28px;max-width:680px;margin-left:auto;margin-right:auto;}
+  .cover .pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+  .cover .pill{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:50px;padding:6px 16px;font-size:13px;font-weight:500;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 32px 40px;}
+  .domain-header{padding:28px 40px;color:white;display:flex;align-items:center;gap:16px;margin-top:8px;}
+  .domain-header .dh-icon{font-size:2em;flex-shrink:0;}
+  .domain-header h2{font-size:1.55em;font-weight:700;letter-spacing:-0.3px;}
+  .domain-header .dh-badge{margin-left:auto;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:50px;padding:4px 14px;font-size:13px;font-weight:600;white-space:nowrap;}
+  .dh-pink{background:linear-gradient(90deg,#C0187E,#8B0050);}
+  .dh-purple{background:linear-gradient(90deg,#5C2D91,#7B2FBE);}
+  .dh-blue{background:linear-gradient(90deg,#0078D4,#005A9E);}
+  .dh-dark{background:linear-gradient(90deg,#1B1464,#C0187E);}
+  .dh-teal{background:linear-gradient(90deg,#008272,#005F5F);}
+  .card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);margin:16px 0;overflow:hidden;}
+  .card-head{background:var(--ms-light);border-bottom:3px solid var(--ms-blue);padding:13px 20px;display:flex;align-items:center;gap:10px;}
+  .card-head.purple{background:var(--ms-purple-light);border-bottom-color:var(--ms-purple);}
+  .card-head.teal{background:var(--ms-teal-light);border-bottom-color:var(--ms-teal);}
+  .card-head.pink{background:var(--dp7-light);border-bottom-color:var(--dp7);}
+  .card-head.green{background:var(--ms-green-light);border-bottom-color:var(--ms-green);}
+  .card-head h4{font-size:1.02em;font-weight:700;color:var(--ms-dark);}
+  .card-head.purple h4{color:var(--ms-purple);} .card-head.teal h4{color:var(--ms-teal);}
+  .card-head.pink h4{color:#C0187E;} .card-head.green h4{color:var(--ms-green);}
+  .card-head .ch-icon{font-size:1.25em;}
+  .card-body{padding:20px;}
+  p.body-text{font-size:14px;margin:8px 0 12px;color:var(--sub);line-height:1.7;}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+  table th{background:var(--ms-blue);color:white;padding:9px 13px;text-align:left;font-size:12px;font-weight:600;}
+  table.purple th{background:var(--ms-purple);} table.teal th{background:var(--ms-teal);}
+  table.pink th{background:#C0187E;} table.green th{background:var(--ms-green);}
+  table td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--sub);}
+  table tr:nth-child(even) td{background:#FAFAFA;}
+  .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:14px 0;}
+  .info-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px;}
+  .info-box .lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--sub);margin-bottom:5px;}
+  .info-box .val{font-size:13.5px;color:var(--text);line-height:1.5;}
+  .info-box.accent-blue{border-left:3px solid var(--ms-blue);} .info-box.accent-purple{border-left:3px solid var(--ms-purple);}
+  .info-box.accent-teal{border-left:3px solid var(--ms-teal);} .info-box.accent-green{border-left:3px solid var(--ms-green);}
+  .info-box.accent-orange{border-left:3px solid var(--ms-orange);} .info-box.accent-pink{border-left:3px solid var(--dp7);}
+  .info-box.accent-red{border-left:3px solid var(--ms-red);}
+  .exam-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0;}
+  .stat-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center;box-shadow:var(--shadow);}
+  .stat-box .num{font-size:2em;font-weight:800;color:#C0187E;}
+  .stat-box .label{font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px;}
+  .exam-tip{background:var(--exam-yellow);border-left:5px solid var(--exam-border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:13px 18px;margin:14px 0;}
+  .exam-tip .tip-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#7A6800;margin-bottom:6px;}
+  .exam-tip ul,.exam-tip p{font-size:13.5px;color:#3A3000;}
+  .exam-tip ul{padding-left:18px;} .exam-tip li{margin:4px 0;}
+  .warn-box{background:var(--warn-bg);border-left:5px solid var(--warn-border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:13px 18px;margin:14px 0;}
+  .warn-box p,.warn-box ul{font-size:13.5px;color:#5A0000;}
+  .warn-box ul{padding-left:18px;} .warn-box li{margin:4px 0;}
+  .ptr{background:linear-gradient(135deg,#1B1464 0%,#C0187E 100%);color:white;border-radius:var(--radius);padding:18px 22px;margin:16px 0;}
+  .ptr h4{font-size:0.95em;font-weight:700;margin-bottom:10px;}
+  .ptr ul{list-style:none;padding:0;}
+  .ptr ul li{padding:5px 0 5px 24px;font-size:13.5px;position:relative;opacity:0.95;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .ptr ul li:last-child{border-bottom:none;}
+  .ptr ul li::before{content:"★";position:absolute;left:0;color:#FFD700;font-size:12px;}
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+  .compare-box{border-radius:var(--radius-sm);padding:16px;border:1px solid var(--border);}
+  .compare-box.blue{background:var(--ms-light);border-color:#A0C4E8;} .compare-box.purple{background:var(--ms-purple-light);border-color:#C4A8E0;}
+  .compare-box.teal{background:var(--ms-teal-light);border-color:#80C8C0;} .compare-box.pink{background:var(--dp7-light);border-color:#F0A0C0;}
+  .compare-box.green{background:var(--ms-green-light);border-color:#80C880;}
+  .compare-box h4{font-size:13.5px;font-weight:700;margin-bottom:10px;}
+  .compare-box.blue h4{color:var(--ms-blue);} .compare-box.purple h4{color:var(--ms-purple);}
+  .compare-box.teal h4{color:var(--ms-teal);} .compare-box.pink h4{color:#C0187E;}
+  .compare-box.green h4{color:var(--ms-green);}
+  .compare-box ul{padding-left:18px;font-size:13px;} .compare-box ul li{margin:4px 0;}
+  .flow{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:14px 0;}
+  .flow-step{background:var(--dp7-light);border:2px solid var(--dp7);border-radius:var(--radius-sm);padding:7px 13px;font-size:13px;font-weight:600;color:#C0187E;}
+  .flow-arrow{font-size:18px;color:#C0187E;}
+  .cheat-bg{background:linear-gradient(135deg,#8B0050 0%,#5C2D91 100%);color:white;border-radius:14px;padding:28px;margin:20px 0;}
+  .cheat-bg h3{font-size:1.2em;margin-bottom:18px;}
+  .cs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;}
+  .cs-item{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);padding:12px;font-size:13px;}
+  .cs-item strong{display:block;margin-bottom:4px;color:#FFD700;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;}
+  .traps-card{background:white;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin:16px 0;box-shadow:var(--shadow);}
+  .traps-card .traps-head{background:linear-gradient(90deg,#A80000,#CA5010);padding:13px 20px;display:flex;align-items:center;gap:10px;color:white;}
+  .traps-card .traps-head h4{font-size:1em;font-weight:700;}
+  .traps-card .traps-body{padding:20px;}
+  .trap{padding:10px 0;border-bottom:1px solid #F3F3F3;font-size:13.5px;}
+  .false{color:#A80000;font-weight:700;} .correct{color:#107C10;font-weight:700;}
+  ul.std{padding-left:18px;font-size:13.5px;} ul.std li{margin:4px 0;}
+  .back-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:white;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-weight:600;color:var(--ms-blue);text-decoration:none;margin:16px 0 0;transition:all 0.2s;}
+  .back-btn:hover{background:var(--ms-light);}
+  .must-know-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;}
+  .must-know-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;}
+  .mk-q{font-size:11.5px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;}
+  .mk-a{font-size:13.5px;color:var(--text);}
+  @media(max-width:700px){.compare-grid{grid-template-columns:1fr;}.exam-stats{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<div class="sticky-nav">
+  <div class="sticky-nav-inner">
+    <span class="nav-logo">DP-700</span>
+    <div class="nav-sep"></div>
+    <a href="#overview" class="nav-tag">Overview</a>
+    <a href="#medallion" class="nav-tag">Medallion Architecture</a>
+    <a href="#spark-adv" class="nav-tag">Advanced Spark</a>
+    <a href="#warehouse" class="nav-tag">Data Warehouse</a>
+    <a href="#streaming" class="nav-tag">Streaming</a>
+    <a href="#monitoring" class="nav-tag">Monitoring &amp; Optimisation</a>
+    <a href="#cheatsheet" class="nav-tag">Cheat Sheet</a>
+    <a href="#traps" class="nav-tag">Exam Traps</a>
+  </div>
+</div>
+
+<div class="cover" id="overview">
+  <div class="pill-top">Microsoft Certification · DP-700</div>
+  <h1>Implement Data Engineering Solutions<br>Using Microsoft Fabric</h1>
+  <p class="subtitle">Advanced Fabric data engineering — medallion architecture, Spark optimisation, Delta tables, data warehousing, streaming, and CI/CD with Fabric.</p>
+  <div class="pills">
+    <span class="pill">🏗️ Design &amp; Implement — 25–30%</span>
+    <span class="pill">⚡ Ingest &amp; Transform — 30–35%</span>
+    <span class="pill">🏢 Data Warehouse — 20–25%</span>
+    <span class="pill">📡 Real-Time &amp; Monitor — 15–20%</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Back to Learning Hub</a>
+  <div class="exam-stats">
+    <div class="stat-box"><div class="num">~60</div><div class="label">Questions</div></div>
+    <div class="stat-box"><div class="num">120</div><div class="label">Minutes</div></div>
+    <div class="stat-box"><div class="num">700</div><div class="label">Pass Score</div></div>
+    <div class="stat-box"><div class="num">Associate</div><div class="label">Level</div></div>
+  </div>
+  <div class="warn-box"><p><strong>Prerequisites:</strong> DP-700 is a hands-on data engineering exam. Deep knowledge of PySpark, Delta Lake, Fabric Lakehouse, SQL, and pipeline design expected. DP-600 or equivalent Fabric experience strongly recommended.</p></div>
+</div>
+
+<!-- MEDALLION ARCHITECTURE -->
+<div id="medallion" class="domain-header dh-pink">
+  <div class="dh-icon">🏅</div>
+  <h2>Medallion Architecture in Fabric</h2>
+  <span class="dh-badge">25–30%</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head pink"><div class="ch-icon">🔺</div><h4>Bronze / Silver / Gold Architecture</h4></div>
+    <div class="card-body">
+      <div class="flow">
+        <div class="flow-step" style="background:#FFF4EC;border-color:#CA5010;color:#CA5010;">🟫 Bronze — Raw Landing</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:#EFF9F8;border-color:#008272;color:#008272;">⬜ Silver — Cleansed &amp; Validated</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:#FFF4CE;border-color:#FFB900;color:#7A6800;">🟡 Gold — Business-Ready</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">📊 Reporting (Power BI)</div>
+      </div>
+      <table class="pink" style="margin-top:14px;">
+        <tr><th>Layer</th><th>Characteristics</th><th>Storage Pattern</th><th>Key Operations</th></tr>
+        <tr><td><strong>Bronze (Raw)</strong></td><td>Exact copy of source data — no transformation, preserve history, append-only</td><td>Schema-on-read; raw files OR Delta tables; partitioned by ingestion date</td><td>Copy Activity / Autoloader; no schema enforcement; land as-is</td></tr>
+        <tr><td><strong>Silver (Cleansed)</strong></td><td>Validated, deduplicated, standardised schema; still granular/atomic</td><td>Delta tables; schema-on-write; partitioned by business key</td><td>Data quality checks; type casting; deduplication; SCD Type 2 merges</td></tr>
+        <tr><td><strong>Gold (Curated)</strong></td><td>Aggregated, denormalised, business-domain oriented; star schema</td><td>Delta tables; pre-aggregated; optimised for BI queries</td><td>OPTIMIZE; Z-order; fact &amp; dimension table creation; business KPIs</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🔄</div><h4>SCD Type 2 — Slowly Changing Dimensions</h4></div>
+    <div class="card-body">
+      <p class="body-text">SCD Type 2 preserves the full history of dimension changes by creating a new row for each change, with effective date columns tracking validity periods.</p>
+      <div class="compare-grid">
+        <div class="compare-box blue">
+          <h4>SCD Type 1 — Overwrite</h4>
+          <ul class="std"><li>Replace old value with new value</li><li>No history preserved</li><li>Simplest approach</li><li>Use for: error corrections, non-historical attributes</li></ul>
+        </div>
+        <div class="compare-box pink">
+          <h4>SCD Type 2 — Add New Row</h4>
+          <ul class="std"><li>Insert new row with new values</li><li>Old row end-dated, new row active</li><li>Columns: <code>EffectiveDate, ExpiryDate, IsCurrent</code></li><li>Use for: address changes, job title, price history</li></ul>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ SCD Type 2 with Delta Merge Pattern</div>
+        <p>Use <code>MERGE INTO</code> (SQL) or <code>DeltaTable.merge()</code> (PySpark) for upserts. For SCD Type 2, WHEN MATCHED and value changed → UPDATE to close old row, then INSERT new row. Requires surrogate key on dimension table.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head pink"><div class="ch-icon">⚡</div><h4>Idempotent Pipeline Design</h4></div>
+    <div class="card-body">
+      <p class="body-text">An idempotent pipeline produces the same result when run multiple times, even if run after failure or re-execution. Critical for reliable data engineering.</p>
+      <div class="compare-grid">
+        <div class="compare-box pink">
+          <h4>Idempotency Patterns</h4>
+          <ul class="std">
+            <li>Use <code>MERGE</code> instead of INSERT (prevents duplicates)</li>
+            <li>Write with <code>mode("overwrite")</code> for full refreshes</li>
+            <li>Use watermarks / checkpointing for incremental loads</li>
+            <li>Partition by date + use <code>replaceWhere</code> for targeted overwrites</li>
+            <li>Track processed state in control/metadata tables</li>
+          </ul>
+        </div>
+        <div class="compare-box purple">
+          <h4>Control Tables / Metadata-Driven Pipelines</h4>
+          <ul class="std">
+            <li>Store pipeline parameters in a config table (source, target, watermark)</li>
+            <li>Pipeline reads config at runtime — no hardcoded values</li>
+            <li>Enables self-service onboarding of new data sources</li>
+            <li>Track run status, last watermark, row counts in audit table</li>
+            <li>ForEach activity in Data Pipeline iterates over config rows</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Medallion Architecture</h4>
+    <ul>
+      <li>Bronze = raw, never delete, append-only; Silver = clean validated Delta; Gold = aggregated for BI</li>
+      <li>SCD Type 2 = new row per change with EffectiveDate/ExpiryDate/IsCurrent flag</li>
+      <li>Idempotency = safe to re-run; use MERGE not INSERT, use partitioned overwrites</li>
+      <li>Metadata-driven = no hardcoding; ForEach pattern in pipeline iterates over config table</li>
+      <li>Always track watermarks (last processed timestamp/key) in control table for incremental loads</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ADVANCED SPARK -->
+<div id="spark-adv" class="domain-header dh-purple">
+  <div class="dh-icon">⚡</div>
+  <h2>Advanced Spark &amp; Delta Operations</h2>
+  <span class="dh-badge">30–35%</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🔧</div><h4>Spark Performance Optimisation</h4></div>
+    <div class="card-body">
+      <table class="purple">
+        <tr><th>Technique</th><th>Description</th><th>When to Use</th></tr>
+        <tr><td><strong>Partitioning</strong></td><td>Divide data into partitions by column (e.g. year/month) so Spark reads only relevant partitions</td><td>Large tables with common filter columns; avoid high-cardinality columns</td></tr>
+        <tr><td><strong>Z-ordering (ZORDER BY)</strong></td><td>Co-locate related data in same files — multiple column optimisation for range queries</td><td>When filtering on multiple columns; works within each partition</td></tr>
+        <tr><td><strong>OPTIMIZE</strong></td><td>Compact many small Delta files into fewer large files (target ~1GB each)</td><td>After streaming ingestion or many small writes; reduces read overhead</td></tr>
+        <tr><td><strong>Caching / Persisting</strong></td><td>Cache DataFrame in memory for repeated use — <code>df.cache()</code> or <code>df.persist()</code></td><td>When same DataFrame used multiple times in a session; reduces recomputation</td></tr>
+        <tr><td><strong>Broadcast Join</strong></td><td>Broadcast small table to all executors to avoid expensive shuffle — <code>broadcast(smallDf)</code></td><td>Joining large table with small lookup/dimension table (&lt;200MB)</td></tr>
+        <tr><td><strong>Adaptive Query Execution (AQE)</strong></td><td>Spark dynamically optimises query plan at runtime based on actual data statistics</td><td>Enabled by default in Fabric — handles skew, coalesces partitions automatically</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🔺</div><h4>Advanced Delta Operations</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-purple"><div class="lbl">MERGE (Upsert)</div><div class="val">Insert new + update existing records atomically. Core pattern for Silver layer SCD processing and idempotent writes.</div></div>
+        <div class="info-box accent-blue"><div class="lbl">replaceWhere</div><div class="val">Overwrite only a partition or subset: <code>.option("replaceWhere", "date='2024-01-01'")</code> — avoids full table rewrite.</div></div>
+        <div class="info-box accent-teal"><div class="lbl">Schema Evolution</div><div class="val">Add new columns automatically: <code>.option("mergeSchema", "true")</code>. Prevents write failure on new columns.</div></div>
+        <div class="info-box accent-green"><div class="lbl">Change Data Feed (CDF)</div><div class="val">Track row-level changes (insert/update/delete) on Delta table. Enable: <code>delta.enableChangeDataFeed = true</code>.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Clone</div><div class="val">Shallow clone = metadata only (fast, shared files); Deep clone = full copy. Use for dev/test environments.</div></div>
+        <div class="info-box accent-pink"><div class="lbl">Liquid Clustering</div><div class="val">New alternative to static partitioning — cluster data by column values dynamically without fixed partition columns. Better for variable query patterns.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head teal"><div class="ch-icon">🐍</div><h4>PySpark Patterns — Key Code for Exam</h4></div>
+    <div class="card-body">
+      <table class="teal">
+        <tr><th>Operation</th><th>PySpark Code Pattern</th></tr>
+        <tr><td>Read Delta table</td><td><code>df = spark.read.table("lakehouse.tablename")</code></td></tr>
+        <tr><td>Write Delta (append)</td><td><code>df.write.format("delta").mode("append").saveAsTable("table")</code></td></tr>
+        <tr><td>Merge/Upsert</td><td><code>delta_table.alias("t").merge(src.alias("s"), "t.id = s.id").whenMatchedUpdateAll().whenNotMatchedInsertAll().execute()</code></td></tr>
+        <tr><td>Partition overwrite</td><td><code>df.write.option("replaceWhere","date='2024-01-01'").mode("overwrite").format("delta").saveAsTable("t")</code></td></tr>
+        <tr><td>Time travel query</td><td><code>spark.read.format("delta").option("versionAsOf",5).load("path")</code></td></tr>
+        <tr><td>OPTIMIZE + ZORDER</td><td><code>spark.sql("OPTIMIZE table ZORDER BY (customer_id, date)")</code></td></tr>
+        <tr><td>Enable Change Data Feed</td><td><code>spark.sql("ALTER TABLE t SET TBLPROPERTIES (delta.enableChangeDataFeed = true)")</code></td></tr>
+        <tr><td>Read CDF changes</td><td><code>spark.read.format("delta").option("readChangeFeed","true").option("startingVersion",0).table("t")</code></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Advanced Spark</h4>
+    <ul>
+      <li>Broadcast join = small table (&lt;200MB) to avoid shuffle; Spark config: <code>spark.sql.autoBroadcastJoinThreshold</code></li>
+      <li>OPTIMIZE compacts files; ZORDER BY co-locates data for range filters — use TOGETHER for best effect</li>
+      <li>Liquid Clustering = newer alternative to partitioning; more flexible for changing query patterns</li>
+      <li>Change Data Feed = track insert/update/delete changes; essential for incremental Silver processing</li>
+      <li>AQE is ON by default in Fabric — handles skew joins, coalesces small partitions automatically</li>
+    </ul>
+  </div>
+</div>
+
+<!-- DATA WAREHOUSE -->
+<div id="warehouse" class="domain-header dh-blue">
+  <div class="dh-icon">🏢</div>
+  <h2>Fabric Data Warehouse — Advanced</h2>
+  <span class="dh-badge">20–25%</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">📋</div><h4>Warehouse Design Patterns</h4></div>
+    <div class="card-body">
+      <div class="compare-grid">
+        <div class="compare-box blue">
+          <h4>Star Schema (Recommended)</h4>
+          <ul class="std"><li>Fact table (measures: sales_amount, qty) + Dimension tables (date, product, customer)</li><li>Single JOIN from fact to each dimension</li><li>Optimised for Power BI and analytical queries</li><li>Denormalised dimensions for fast reads</li></ul>
+        </div>
+        <div class="compare-box purple">
+          <h4>Surrogate Keys vs Natural Keys</h4>
+          <ul class="std"><li><strong>Surrogate Key</strong> = system-generated integer PK (preferred in DW)</li><li><strong>Natural Key</strong> = business key from source (CustomerID = "CUST001")</li><li>Surrogate keys handle SCD Type 2 and source key changes</li><li>Both stored: surrogate for joining, natural for traceability</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head teal"><div class="ch-icon">🔗</div><h4>Cross-Lakehouse &amp; Cross-Workspace Queries</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-teal"><div class="lbl">Cross-Lakehouse Query (Spark)</div><div class="val">Access tables from multiple Lakehouses in one notebook using: <code>spark.read.table("other_lakehouse.tablename")</code> — requires Lakehouse shortcut or cross-workspace access</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Cross-Database Query (SQL)</div><div class="val">Query tables from other Fabric items using three-part naming in SQL endpoint: <code>SELECT * FROM [warehouse].[schema].[table]</code></div></div>
+        <div class="info-box accent-purple"><div class="lbl">OneLake Shortcuts</div><div class="val">Create shortcuts to other Lakehouses, ADLS Gen2, S3 — access data without copying. Appears as a local table/folder.</div></div>
+        <div class="info-box accent-green"><div class="lbl">Mirroring</div><div class="val">Real-time replication of Azure SQL DB, Cosmos DB into Fabric Lakehouse/Warehouse — near zero latency, no pipelines</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Data Warehouse</h4>
+    <ul>
+      <li>Fabric DW supports full T-SQL DML (INSERT/UPDATE/DELETE/MERGE) — unlike Lakehouse SQL endpoint</li>
+      <li>Fabric DW uses columnar storage for fact tables (optimised for analytical queries)</li>
+      <li>Distribution columns in DW = controls how data is distributed across compute nodes</li>
+      <li>Mirroring = real-time copy from Azure SQL/Cosmos DB to Fabric without ADF pipelines</li>
+      <li>Cross-workspace queries require the querying identity to have read access to target workspace items</li>
+    </ul>
+  </div>
+</div>
+
+<!-- STREAMING & MONITORING -->
+<div id="streaming" class="domain-header dh-teal">
+  <div class="dh-icon">📡</div>
+  <h2>Streaming, Monitoring &amp; CI/CD</h2>
+  <span class="dh-badge">15–20%</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head teal"><div class="ch-icon">🌊</div><h4>Real-Time Intelligence in Fabric</h4></div>
+    <div class="card-body">
+      <table class="teal">
+        <tr><th>Component</th><th>Description</th><th>Use Case</th></tr>
+        <tr><td><strong>Eventstream</strong></td><td>Ingest, route, and transform streaming events — connects to Event Hubs, IoT Hub, Kafka, custom endpoints</td><td>IoT telemetry, clickstream, user activity events</td></tr>
+        <tr><td><strong>KQL Database</strong></td><td>High-performance time-series store for streaming data — optimised for time-based queries</td><td>Log analytics, metrics, telemetry, operational data</td></tr>
+        <tr><td><strong>KQL Queryset</strong></td><td>Write and save KQL queries against a KQL Database</td><td>Adhoc analysis of streaming data</td></tr>
+        <tr><td><strong>Activator (Reflex)</strong></td><td>Event-driven trigger — alert or take action when data meets a condition</td><td>Alert when temperature exceeds threshold; trigger pipeline on data arrival</td></tr>
+        <tr><td><strong>Structured Streaming (Spark)</strong></td><td>PySpark streaming using <code>readStream</code> / <code>writeStream</code> — process events incrementally as Delta or parquet</td><td>Complex streaming transformations with Spark logic</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head pink"><div class="ch-icon">🔬</div><h4>Monitoring &amp; Optimisation in Fabric</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-pink"><div class="lbl">Fabric Monitoring Hub</div><div class="val">Central view of all pipeline runs, notebook runs, Spark job executions across all workspaces — admin oversight</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Spark History Server</div><div class="val">View detailed Spark job execution — stages, tasks, executors, DAG visualisation — for troubleshooting slow jobs</div></div>
+        <div class="info-box accent-teal"><div class="lbl">Pipeline Run History</div><div class="val">Per-pipeline execution history with duration, status, trigger type, activity details in Data Factory experience</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Capacity Metrics App</div><div class="val">Power BI app to monitor Fabric capacity utilisation — identify which workloads consume most CUs</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🔄</div><h4>CI/CD with Microsoft Fabric</h4></div>
+    <div class="card-body">
+      <div class="compare-grid">
+        <div class="compare-box pink">
+          <h4>Git Integration</h4>
+          <ul class="std"><li>Connect workspace to Azure DevOps Git or GitHub</li><li>Fabric items stored as JSON/metadata files in repo</li><li>Commit changes from Fabric UI or pull updates from Git</li><li>Branch-based development: feature → dev → main</li></ul>
+        </div>
+        <div class="compare-box purple">
+          <h4>Deployment Pipelines</h4>
+          <ul class="std"><li>Promote items across Dev → Test → Prod workspaces</li><li>No Git required — workspace-to-workspace promotion</li><li>Selective deployment of specific items</li><li>Compare content differences between stages</li></ul>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Git Integration vs Deployment Pipelines</div>
+        <ul>
+          <li><strong>Git Integration</strong> = source control, version history, collaboration, branch-based dev</li>
+          <li><strong>Deployment Pipelines</strong> = release management, promote Dev → Test → Prod within Fabric</li>
+          <li>Best practice: use BOTH together — Git for source control + Deployment Pipelines for release promotion</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="monitoring"></div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Streaming, Monitoring &amp; CI/CD</h4>
+    <ul>
+      <li>Eventstream = ingest &amp; route streaming data; KQL Database = store &amp; query time-series data</li>
+      <li>Structured Streaming checkpoints = store progress in ADLS/OneLake — enables fault-tolerant streaming</li>
+      <li>Fabric Monitoring Hub = cross-workspace pipeline/notebook monitoring (admin view)</li>
+      <li>Capacity Metrics App = monitor CU consumption per workspace and workload type</li>
+      <li>Git Integration = source control (Azure DevOps / GitHub); Deployment Pipelines = promote Dev→Prod</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CHEAT SHEET -->
+<div id="cheatsheet" class="domain-header dh-dark">
+  <div class="dh-icon">⚡</div>
+  <h2>Quick-Fire Cheat Sheet</h2>
+</div>
+<div class="wrap">
+  <div class="cheat-bg">
+    <h3>🎯 Scenario → Correct DP-700 Answer</h3>
+    <div class="cs-grid">
+      <div class="cs-item"><strong>Land raw data exactly as from source</strong>Bronze layer — no transformation, append-only</div>
+      <div class="cs-item"><strong>Deduplicate and validate data, add types</strong>Silver layer — schema-on-write Delta tables</div>
+      <div class="cs-item"><strong>Pre-aggregate for Power BI reporting</strong>Gold layer — star schema, OPTIMIZE + ZORDER</div>
+      <div class="cs-item"><strong>Handle slowly changing dimension history</strong>SCD Type 2 — new row per change, EffectiveDate/ExpiryDate</div>
+      <div class="cs-item"><strong>Insert new, update existing in one operation</strong>Delta MERGE (upsert) — whenMatchedUpdate + whenNotMatchedInsert</div>
+      <div class="cs-item"><strong>Overwrite only January 2024 data partition</strong>replaceWhere option on Delta write</div>
+      <div class="cs-item"><strong>Join large fact table with small dimension</strong>Broadcast join — broadcast(dim_df)</div>
+      <div class="cs-item"><strong>Compact many small Delta files</strong>OPTIMIZE (with optional ZORDER BY)</div>
+      <div class="cs-item"><strong>Multi-column filter optimisation in Delta</strong>ZORDER BY (col1, col2) — co-locate related data</div>
+      <div class="cs-item"><strong>Track row-level changes in Delta table</strong>Change Data Feed (CDF) — enableChangeDataFeed</div>
+      <div class="cs-item"><strong>Copy Delta table for dev/test, share files</strong>Shallow Clone (fast, no data copy)</div>
+      <div class="cs-item"><strong>Ingest IoT events in real-time</strong>Eventstream → KQL Database</div>
+      <div class="cs-item"><strong>Alert when streaming data hits a threshold</strong>Activator (Reflex) in Real-Time Intelligence</div>
+      <div class="cs-item"><strong>Version Fabric items in Git</strong>Git Integration (Azure DevOps or GitHub)</div>
+      <div class="cs-item"><strong>Promote workspace from Dev to Prod</strong>Fabric Deployment Pipelines</div>
+      <div class="cs-item"><strong>Monitor slow Spark notebook jobs</strong>Spark History Server — DAG, stages, tasks</div>
+      <div class="cs-item"><strong>Parameterise pipeline for multiple sources</strong>Metadata-driven pipeline with ForEach activity</div>
+      <div class="cs-item"><strong>Real-time replication of Azure SQL into Fabric</strong>Fabric Mirroring (no pipelines needed)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🧠</div><h4>MUST-KNOW Facts</h4></div>
+    <div class="card-body">
+      <div class="must-know-grid">
+        <div class="must-know-item"><div class="mk-q">Bronze / Silver / Gold purpose</div><div class="mk-a">Bronze = raw; Silver = clean validated; Gold = aggregated business-ready</div></div>
+        <div class="must-know-item"><div class="mk-q">Idempotent pipeline definition</div><div class="mk-a">Safe to re-run — same result regardless of how many times executed</div></div>
+        <div class="must-know-item"><div class="mk-q">SCD Type 2 columns</div><div class="mk-a">EffectiveDate, ExpiryDate (or EndDate), IsCurrent flag + surrogate key</div></div>
+        <div class="must-know-item"><div class="mk-q">replaceWhere vs full overwrite</div><div class="mk-a">replaceWhere = overwrite only matching partition; full overwrite = replace entire table</div></div>
+        <div class="must-know-item"><div class="mk-q">Liquid Clustering vs Partitioning</div><div class="mk-a">Liquid Clustering = dynamic, no fixed partitions, better for multi-column filters; newer approach</div></div>
+        <div class="must-know-item"><div class="mk-q">CDF (Change Data Feed) tracks</div><div class="mk-a">Row-level changes: _change_type = insert / update_preimage / update_postimage / delete</div></div>
+        <div class="must-know-item"><div class="mk-q">Broadcast join threshold</div><div class="mk-a">Default 10MB auto-broadcast; override with spark.sql.autoBroadcastJoinThreshold</div></div>
+        <div class="must-know-item"><div class="mk-q">Eventstream output destinations</div><div class="mk-a">KQL Database, Lakehouse, Warehouse, Activator, another Eventstream</div></div>
+        <div class="must-know-item"><div class="mk-q">Git Integration vs Deployment Pipelines</div><div class="mk-a">Git = source control + history; Deployment Pipelines = Dev→Test→Prod promotion</div></div>
+        <div class="must-know-item"><div class="mk-q">Mirroring vs Copy Activity</div><div class="mk-a">Mirroring = continuous real-time replication (no pipelines); Copy Activity = scheduled batch copy</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXAM TRAPS -->
+<div id="traps" class="wrap" style="padding-top:8px;">
+  <div class="traps-card">
+    <div class="traps-head"><div style="font-size:1.4em;">⚠️</div><h4>Common Exam Traps — Don't Fall For These</h4></div>
+    <div class="traps-body">
+      <div class="trap"><span class="false">❌ TRAP:</span> "OPTIMIZE is enough to speed up range filter queries"<br><span class="correct">✅ CORRECT:</span> OPTIMIZE alone just compacts files. Add ZORDER BY to co-locate related data within files for filter predicate pushdown. Use them together: <code>OPTIMIZE table ZORDER BY (date, customer_id)</code>.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "SCD Type 2 can be implemented with just UPDATE statements"<br><span class="correct">✅ CORRECT:</span> SCD Type 2 requires INSERT of a new row (not UPDATE). The process is: UPDATE the old row to set ExpiryDate and IsCurrent=False, then INSERT a new row with the new values and IsCurrent=True. A MERGE statement handles both in one operation.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "Liquid Clustering requires you to define partitions first"<br><span class="correct">✅ CORRECT:</span> Liquid Clustering is specifically designed to REPLACE static partitioning. You define cluster columns, but there are no fixed partition directories. It automatically optimises data layout over time.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "Running VACUUM immediately after creating a Delta table is a best practice"<br><span class="correct">✅ CORRECT:</span> Never run VACUUM with retention below 7 days (168 hours). Running it too soon or with low retention destroys time travel capability and can fail concurrent reader operations.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "Mirroring and Copy Activity do the same thing"<br><span class="correct">✅ CORRECT:</span> Mirroring = continuous, near-real-time replication with no pipeline code, directly into Fabric (supported for Azure SQL DB, Cosmos DB, etc.). Copy Activity = scheduled batch copy, requires pipeline configuration.</div>
+      <div class="trap"><span class="false">❌ TRAP:</span> "A Fabric Deployment Pipeline replaces Git integration"<br><span class="correct">✅ CORRECT:</span> They serve different purposes. Git = version control and collaboration. Deployment Pipelines = promote content between Dev/Test/Prod workspaces. Best practice is to use both together.</div>
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#C0187E,#5C2D91);color:white;border-radius:14px;padding:32px;text-align:center;margin:24px 0 8px;">
+    <div style="font-size:2.5em;margin-bottom:10px;">🎯</div>
+    <h3 style="font-size:1.5em;margin-bottom:10px;">Ready for Exam Day!</h3>
+    <p style="opacity:0.9;font-size:14px;max-width:640px;margin:0 auto 20px;line-height:1.7;">DP-700 is the most hands-on Fabric exam — it tests real engineering decisions. The medallion architecture, Delta patterns, and performance optimisation are the highest-weight topics. Your production Synapse experience is a massive advantage here.</p>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;font-size:13px;">
+      <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:9px 18px;">📝 Pass score: 700 / 1000</div>
+      <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:9px 18px;">📚 Official study: Microsoft Learn</div>
+      <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:9px 18px;">⬆️ <a href="#overview" style="color:white;">Back to top</a></div>
+    </div>
+  </div>
+  <p style="text-align:center;color:#888;font-size:12px;padding-bottom:24px;"><a href="../index.html" style="color:#0078D4;">← Back to Learning Hub</a> &nbsp;|&nbsp; Last updated: April 2026</p>
+</div>
+
+</body>
+</html>
