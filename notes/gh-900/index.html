@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GH-900 Complete Exam Guide — GitHub Foundations</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --gh-black: #0d1117;
+    --gh-dark: #161b22;
+    --gh-card: #21262d;
+    --gh-green: #238636;
+    --gh-green-light: #dcffe4;
+    --gh-blue: #1f6feb;
+    --gh-blue-light: #ddf4ff;
+    --gh-purple: #8957e5;
+    --gh-purple-light: #fbefff;
+    --gh-orange: #bc4c00;
+    --gh-orange-light: #fff1e5;
+    --gh-red: #da3633;
+    --gh-border: #30363d;
+    --gh-text: #e6edf3;
+    --gh-muted: #8b949e;
+    --exam-yellow: #FFF4CE;
+    --exam-border: #FFB900;
+    --warn-bg: #FDE7E9;
+    --warn-border: #da3633;
+    --bg: #F6F8FA;
+    --card: #FFFFFF;
+    --text: #1F2328;
+    --sub: #57606A;
+    --border: #D0D7DE;
+    --shadow: 0 2px 10px rgba(0,0,0,0.07);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 14px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--gh-blue); text-decoration: none; }
+  code { font-family: 'JetBrains Mono', monospace; background: #EFF2F5; padding: 2px 7px; border-radius: 4px; font-size: 12px; color: var(--gh-black); border: 1px solid var(--border); }
+
+  /* ===== STICKY NAV ===== */
+  .sticky-nav { position: sticky; top: 0; background: rgba(13,17,23,0.97); backdrop-filter: blur(8px); z-index: 100; padding: 0 32px; border-bottom: 2px solid var(--gh-green); }
+  .sticky-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; height: 52px; gap: 5px; overflow-x: auto; scrollbar-width: none; }
+  .sticky-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-tag { white-space: nowrap; padding: 5px 13px; border-radius: 50px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.65); transition: all 0.2s; border: 1px solid transparent; cursor: pointer; text-decoration: none; display: inline-block; }
+  .nav-tag:hover { color: white; border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); }
+  .nav-logo { font-weight: 800; color: white; font-size: 13.5px; margin-right: 8px; white-space: nowrap; flex-shrink: 0; letter-spacing: -0.3px; }
+  .nav-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.15); flex-shrink: 0; }
+
+  /* ===== COVER ===== */
+  .cover { background: linear-gradient(135deg, #0d1117 0%, #161b22 40%, #0f2d0f 70%, #0d1117 100%); color: var(--gh-text); padding: 64px 40px 56px; text-align: center; position: relative; overflow: hidden; border-bottom: 3px solid var(--gh-green); }
+  .cover::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(35,134,54,0.15) 0%, transparent 70%); }
+  .cover::after { content: ''; position: absolute; bottom: -40px; left: -40px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(31,111,235,0.12) 0%, transparent 70%); }
+  .cover .pill-top { display: inline-block; background: rgba(35,134,54,0.2); border: 1px solid rgba(35,134,54,0.5); border-radius: 50px; padding: 5px 18px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; color: #7ee787; }
+  .cover h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.5px; color: white; }
+  .cover .subtitle { font-size: 16px; opacity: 0.82; margin-bottom: 28px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.75; color: var(--gh-muted); }
+  .cover .pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .cover .pill { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 50px; padding: 6px 16px; font-size: 13px; font-weight: 500; color: var(--gh-text); }
+  .cover .de-note { background: rgba(35,134,54,0.1); border: 1px solid rgba(35,134,54,0.3); border-radius: var(--radius); padding: 16px 24px; display: inline-block; font-size: 13px; max-width: 740px; line-height: 1.65; margin-top: 8px; color: #aff3bb; }
+  .cover .de-note strong { color: #7ee787; }
+
+  /* ===== CONTAINERS ===== */
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px 40px; }
+
+  /* ===== DOMAIN HEADERS ===== */
+  .domain-header { padding: 28px 40px; color: white; display: flex; align-items: center; gap: 16px; margin-top: 8px; }
+  .domain-header .dh-icon { font-size: 2em; flex-shrink: 0; }
+  .domain-header h2 { font-size: 1.55em; font-weight: 700; letter-spacing: -0.3px; }
+  .domain-header .dh-badge { margin-left: auto; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.28); border-radius: 50px; padding: 4px 14px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .dh-green { background: linear-gradient(90deg, #238636, #0f5323); }
+  .dh-blue { background: linear-gradient(90deg, #1f6feb, #0550ae); }
+  .dh-purple { background: linear-gradient(90deg, #8957e5, #6639ba); }
+  .dh-dark { background: linear-gradient(90deg, #0d1117, #238636); }
+  .dh-orange { background: linear-gradient(90deg, #bc4c00, #7d3300); }
+  .dh-slate { background: linear-gradient(90deg, #32383f, #1c2128); }
+  .dh-teal { background: linear-gradient(90deg, #1b7c83, #0f5258); }
+
+  /* ===== TOPIC CARDS ===== */
+  .card { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); margin: 16px 0; overflow: hidden; }
+  .card-head { background: var(--gh-blue-light); border-bottom: 3px solid var(--gh-blue); padding: 13px 20px; display: flex; align-items: center; gap: 10px; }
+  .card-head.green { background: var(--gh-green-light); border-bottom-color: var(--gh-green); }
+  .card-head.purple { background: var(--gh-purple-light); border-bottom-color: var(--gh-purple); }
+  .card-head.orange { background: var(--gh-orange-light); border-bottom-color: var(--gh-orange); }
+  .card-head.dark { background: #f0f1f3; border-bottom-color: #57606A; }
+  .card-head h4 { font-size: 1.02em; font-weight: 700; color: #0550ae; }
+  .card-head.green h4 { color: #116329; }
+  .card-head.purple h4 { color: #6639ba; }
+  .card-head.orange h4 { color: #7d3300; }
+  .card-head.dark h4 { color: #32383f; }
+  .card-head .ch-icon { font-size: 1.25em; }
+  .card-body { padding: 20px; }
+  p.body-text { font-size: 14px; margin: 8px 0 12px; color: var(--sub); line-height: 1.7; }
+
+  /* ===== TABLES ===== */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  table th { background: var(--gh-black); color: white; padding: 9px 13px; text-align: left; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; }
+  table.green th { background: var(--gh-green); }
+  table.blue th { background: var(--gh-blue); }
+  table.purple th { background: var(--gh-purple); }
+  table.orange th { background: var(--gh-orange); }
+  table.slate th { background: #32383f; }
+  table td { padding: 9px 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--sub); }
+  table tr:nth-child(even) td { background: #F6F8FA; }
+  table td strong { color: var(--text); }
+
+  /* ===== INFO GRIDS ===== */
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 14px 0; }
+  .info-box { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 13px; }
+  .info-box .lbl { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--sub); margin-bottom: 5px; }
+  .info-box .val { font-size: 13.5px; color: var(--text); line-height: 1.5; }
+  .info-box.accent-green { border-left: 3px solid var(--gh-green); }
+  .info-box.accent-blue { border-left: 3px solid var(--gh-blue); }
+  .info-box.accent-purple { border-left: 3px solid var(--gh-purple); }
+  .info-box.accent-orange { border-left: 3px solid var(--gh-orange); }
+  .info-box.accent-red { border-left: 3px solid var(--gh-red); }
+  .info-box.accent-slate { border-left: 3px solid #57606A; }
+
+  /* ===== EXAM STATS ===== */
+  .exam-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; text-align: center; box-shadow: var(--shadow); }
+  .stat-box .num { font-size: 2em; font-weight: 800; color: var(--gh-green); }
+  .stat-box .label { font-size: 11px; font-weight: 600; color: var(--sub); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; }
+
+  /* ===== CALLOUT BOXES ===== */
+  .exam-tip { background: var(--exam-yellow); border-left: 5px solid var(--exam-border); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 13px 18px; margin: 14px 0; }
+  .exam-tip .tip-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7A6800; margin-bottom: 6px; }
+  .exam-tip ul, .exam-tip p { font-size: 13.5px; color: #3A3000; }
+  .exam-tip ul { padding-left: 18px; }
+  .exam-tip li { margin: 4px 0; }
+
+  .tip-box { background: var(--gh-green-light); border-left: 5px solid var(--gh-green); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 13px 18px; margin: 14px 0; }
+  .tip-box p, .tip-box ul { font-size: 13.5px; color: #0f3d17; }
+  .tip-box ul { padding-left: 18px; }
+  .tip-box li { margin: 4px 0; }
+
+  .warn-box { background: var(--warn-bg); border-left: 5px solid var(--warn-border); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 13px 18px; margin: 14px 0; }
+  .warn-box p, .warn-box ul { font-size: 13.5px; color: #5A0000; }
+  .warn-box ul { padding-left: 18px; }
+  .warn-box li { margin: 4px 0; }
+
+  /* ===== POINTS TO REMEMBER ===== */
+  .ptr { background: linear-gradient(135deg, #0d1117 0%, #238636 100%); color: white; border-radius: var(--radius); padding: 18px 22px; margin: 16px 0; }
+  .ptr h4 { font-size: 0.95em; font-weight: 700; margin-bottom: 10px; }
+  .ptr ul { list-style: none; padding: 0; }
+  .ptr ul li { padding: 5px 0 5px 24px; font-size: 13.5px; position: relative; opacity: 0.95; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .ptr ul li:last-child { border-bottom: none; }
+  .ptr ul li::before { content: "★"; position: absolute; left: 0; color: #7ee787; font-size: 12px; }
+
+  /* ===== COMPARE GRIDS ===== */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .compare-box { border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border); }
+  .compare-box.green { background: var(--gh-green-light); border-color: #9be6b4; }
+  .compare-box.blue { background: var(--gh-blue-light); border-color: #89bef5; }
+  .compare-box.purple { background: var(--gh-purple-light); border-color: #c4a8f0; }
+  .compare-box.orange { background: var(--gh-orange-light); border-color: #f0b070; }
+  .compare-box.slate { background: #f0f1f3; border-color: #c8ccd0; }
+  .compare-box h4 { font-size: 13.5px; font-weight: 700; margin-bottom: 10px; }
+  .compare-box.green h4 { color: #116329; }
+  .compare-box.blue h4 { color: #0550ae; }
+  .compare-box.purple h4 { color: #6639ba; }
+  .compare-box.orange h4 { color: #7d3300; }
+  .compare-box.slate h4 { color: #32383f; }
+  .compare-box ul { padding-left: 18px; font-size: 13px; }
+  .compare-box ul li { margin: 4px 0; }
+
+  /* ===== CHEAT SHEET ===== */
+  .cheat-bg { background: linear-gradient(135deg, #0d1117 0%, #0f2d0f 50%, #161b22 100%); color: white; border-radius: 14px; padding: 28px; margin: 20px 0; border: 1px solid rgba(35,134,54,0.3); }
+  .cheat-bg h3 { font-size: 1.2em; margin-bottom: 18px; color: #7ee787; }
+  .cs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .cs-item { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 12px; font-size: 13px; color: #cdd9e5; }
+  .cs-item strong { display: block; margin-bottom: 4px; color: #7ee787; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ===== TRAPS BOX ===== */
+  .traps-card { background: white; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin: 16px 0; box-shadow: var(--shadow); }
+  .traps-card .traps-head { background: linear-gradient(90deg, #da3633, #bc4c00); padding: 13px 20px; display: flex; align-items: center; gap: 10px; color: white; }
+  .traps-card .traps-head h4 { font-size: 1em; font-weight: 700; }
+  .traps-card .traps-body { padding: 20px; }
+  .trap { padding: 10px 0; border-bottom: 1px solid #F3F3F3; font-size: 13.5px; }
+  .trap:last-child { border-bottom: none; padding-bottom: 0; }
+  .false { color: var(--gh-red); font-weight: 700; }
+  .correct { color: var(--gh-green); font-weight: 600; }
+
+  /* ===== MUST-KNOW GRID ===== */
+  .must-know-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; margin: 14px 0; }
+  .must-know-item { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; }
+  .mk-q { font-size: 11px; font-weight: 700; color: var(--sub); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .mk-a { font-size: 13.5px; color: var(--text); }
+
+  ul.std { padding-left: 20px; font-size: 14px; }
+  ul.std li { margin: 5px 0; color: var(--sub); }
+  ol.std { padding-left: 20px; font-size: 13.5px; }
+  ol.std li { margin: 6px 0; color: var(--sub); }
+  hr.div { border: none; border-top: 2px solid var(--border); margin: 28px 0; }
+
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.7); padding: 6px 0; text-decoration: none; }
+  .back-btn:hover { color: white; }
+
+  /* ===== FLOW DIAGRAM ===== */
+  .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+  .flow-step { background: var(--gh-blue-light); border: 2px solid var(--gh-blue); border-radius: var(--radius-sm); padding: 7px 13px; font-size: 12.5px; font-weight: 600; color: #0550ae; }
+  .flow-step.green { background: var(--gh-green-light); border-color: var(--gh-green); color: #116329; }
+  .flow-step.purple { background: var(--gh-purple-light); border-color: var(--gh-purple); color: #6639ba; }
+  .flow-arrow { font-size: 18px; color: var(--sub); }
+
+  /* ===== COMMAND BLOCK ===== */
+  .cmd-block { background: #0d1117; border: 1px solid var(--gh-border); border-radius: var(--radius-sm); padding: 14px 18px; margin: 12px 0; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: #7ee787; overflow-x: auto; }
+  .cmd-block .cmd-comment { color: #8b949e; }
+  .cmd-block .cmd-keyword { color: #79c0ff; }
+
+  @media (max-width: 768px) {
+    .exam-stats { grid-template-columns: repeat(2, 1fr); }
+    .compare-grid, .three-col { grid-template-columns: 1fr; }
+    .wrap { padding: 0 18px 32px; }
+    .cover { padding: 48px 20px 40px; }
+    .domain-header { padding: 22px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<div class="sticky-nav">
+  <div class="sticky-nav-inner">
+    <span class="nav-logo">GH-900</span>
+    <div class="nav-sep"></div>
+    <a href="#overview" class="nav-tag">Overview</a>
+    <a href="#d1-git" class="nav-tag">D1: Git Basics</a>
+    <a href="#d1-github" class="nav-tag">D1: GitHub</a>
+    <a href="#d2-repos" class="nav-tag">D2: Repositories</a>
+    <a href="#d3-collab" class="nav-tag">D3: Collaboration</a>
+    <a href="#d4-modern" class="nav-tag">D4: Actions &amp; Copilot</a>
+    <a href="#d5-projects" class="nav-tag">D5: Projects</a>
+    <a href="#d6-security" class="nav-tag">D6: Security &amp; Admin</a>
+    <a href="#d7-community" class="nav-tag">D7: Community</a>
+    <a href="#cheatsheet" class="nav-tag">⚡ Cheat Sheet</a>
+    <a href="#traps" class="nav-tag">⚠️ Traps</a>
+  </div>
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <a href="../index.html" class="back-btn">← Back to Learning Hub</a>
+  <div class="pill-top">GitHub Certification — One-Stop Exam Prep</div>
+  <h1>GH-900: GitHub Foundations</h1>
+  <div class="subtitle">A comprehensive, single-document exam guide covering every domain at full depth — Git fundamentals, repositories, collaboration, GitHub Actions, Copilot, project management, security, and the GitHub community. Updated for January 2026 exam objectives.</div>
+  <div class="pills">
+    <div class="pill">🎯 Pass Score: 700 / 1000</div>
+    <div class="pill">⏱️ ~120 Minutes</div>
+    <div class="pill">📊 7 Exam Domains</div>
+    <div class="pill">🌿 Focus: Git + GitHub Platform</div>
+    <div class="pill">📚 Breadth across all 7 domains</div>
+  </div>
+  <div class="de-note">💡 <strong>Data Engineer context:</strong> You already use Git daily — Azure DevOps, repo branching, CI/CD. This exam shifts the lens to <strong>GitHub's native platform</strong>: GitHub Flow (not Git Flow), GitHub-specific collaboration tools (Issues, PRs, Discussions), GitHub Actions for automation, GitHub Copilot's different tiers, and security administration at the org/enterprise level. Your strength: branching, commits, CLI. Your gap: GitHub-specific workflows, project management, and the community/open-source domain.</div>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div id="overview" class="domain-header dh-dark">
+  <div class="dh-icon">🗺️</div>
+  <h2>Exam Overview &amp; Domain Breakdown</h2>
+</div>
+<div class="wrap">
+
+  <div class="exam-stats">
+    <div class="stat-box"><div class="num">700</div><div class="label">Passing Score</div></div>
+    <div class="stat-box"><div class="num">~120</div><div class="label">Minutes</div></div>
+    <div class="stat-box"><div class="num">60–75</div><div class="label">Questions</div></div>
+    <div class="stat-box"><div class="num">7</div><div class="label">Domains</div></div>
+  </div>
+
+  <div class="warn-box">
+    <p><strong>⚠️ Jan 2026 Rewrite:</strong> The exam was <strong>significantly restructured</strong> in January 2026. New objectives were added (Copilot agents, Agent Mode, multi-model support, passkeys, EMUs), some removed, and all reworded. These notes reflect the current Jan 2026 objectives. If you used older resources, verify they cover the latest blueprint.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head green"><div class="ch-icon">📊</div><h4>Domain Breakdown &amp; Study Priority</h4></div>
+    <div class="card-body">
+      <table class="green">
+        <tr><th>Domain</th><th>Weight</th><th>Priority</th><th>Key Topics</th></tr>
+        <tr><td><strong>1 — Git &amp; GitHub Basics</strong></td><td>25–30%</td><td style="color:#da3633;font-weight:700">Highest</td><td>Version control concepts, Git vs GitHub, commits/branches/repos, GitHub Flow, Markdown, Desktop/Mobile</td></tr>
+        <tr><td><strong>2 — GitHub Repositories</strong></td><td>10–15%</td><td style="color:#bc4c00;font-weight:700">High</td><td>Key files (README, LICENSE, CODEOWNERS), templates, branches, insights, metrics</td></tr>
+        <tr><td><strong>3 — Collaboration</strong></td><td>10–15%</td><td style="color:#bc4c00;font-weight:700">High</td><td>Issues, PRs, Discussions, notifications, Gists, Wikis, Pages</td></tr>
+        <tr><td><strong>4 — Modern Development</strong></td><td>10–15%</td><td style="color:#bc4c00;font-weight:700">High</td><td>GitHub Actions, Copilot (tiers + agents + Agent Mode), Codespaces, github.dev editor</td></tr>
+        <tr><td><strong>5 — Project Management</strong></td><td>5–10%</td><td style="color:#0550ae;font-weight:700">Medium</td><td>GitHub Projects, layouts, labels, milestones, workflows, saved replies, insights</td></tr>
+        <tr><td><strong>6 — Security &amp; Administration</strong></td><td>10–15%</td><td style="color:#bc4c00;font-weight:700">High</td><td>2FA/passkeys, roles, permissions, EMUs, branch protection, org/enterprise management</td></tr>
+        <tr><td><strong>7 — GitHub Community</strong></td><td>5–10%</td><td style="color:#0550ae;font-weight:700">Medium</td><td>Open source, Sponsors, InnerSource, Marketplace, forks vs templates, follow users</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Exam Strategy</h4>
+    <ul>
+      <li>Domain 1 is the highest weight (25–30%) — master Git fundamentals and GitHub Flow before anything else</li>
+      <li>Domains 2, 3, 4, and 6 are each 10–15% — together they account for ~55% of the exam</li>
+      <li>Know the difference between similar tools: github.dev vs Codespaces, Fork vs Template, Issue vs Discussion, Wiki vs Pages</li>
+      <li>GitHub Copilot questions now include <strong>agents, Agent Mode, and multi-model support</strong> — don't skip these</li>
+      <li>Security section includes <strong>passkeys and Enterprise Managed Users (EMUs)</strong> — new in 2026 objectives</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DOMAIN 1: GIT BASICS ===== -->
+<div id="d1-git" class="domain-header dh-green">
+  <div class="dh-icon">🌿</div>
+  <h2>Domain 1 — Version Control &amp; Git Fundamentals</h2>
+  <span class="dh-badge">25–30%</span>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <div class="card-head green"><div class="ch-icon">🔍</div><h4>What is Version Control?</h4></div>
+    <div class="card-body">
+      <p class="body-text">Version control (also called source control or revision control) is a system that records changes to files over time so you can recall specific versions later. It enables collaboration, history tracking, and safe experimentation.</p>
+      <div class="info-grid">
+        <div class="info-box accent-green"><div class="lbl">Purpose</div><div class="val">Track changes over time, revert to previous states, collaborate without overwriting each other's work</div></div>
+        <div class="info-box accent-blue"><div class="lbl">History</div><div class="val">Every change is recorded with who made it, when, and why — full audit trail of the codebase</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Branching</div><div class="val">Work on features or fixes in isolation without affecting the main/production codebase</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Collaboration</div><div class="val">Multiple people work on the same project simultaneously, then merge their changes</div></div>
+        <div class="info-box accent-slate"><div class="lbl">Recovery</div><div class="val">If something breaks, roll back to any previous working state — no work permanently lost</div></div>
+        <div class="info-box accent-green"><div class="lbl">Backup</div><div class="val">Distributed systems mean every developer has a full copy of the repository and its history</div></div>
+      </div>
+      <div class="compare-grid" style="margin-top:14px">
+        <div class="compare-box slate">
+          <h4>Centralised VCS (e.g. SVN, TFVC)</h4>
+          <ul><li>Single central server holds all history</li><li>Developers check out single files</li><li>Network required to commit</li><li>Single point of failure</li><li>Example: Subversion (SVN)</li></ul>
+        </div>
+        <div class="compare-box green">
+          <h4>Distributed VCS (e.g. Git)</h4>
+          <ul><li>Every clone is a full copy of the repo + history</li><li>Work offline — commit locally, push later</li><li>No single point of failure</li><li>Faster most operations (local)</li><li>Example: Git, Mercurial</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head green"><div class="ch-icon">⚙️</div><h4>Core Git Concepts — Must Know Every One</h4></div>
+    <div class="card-body">
+      <table class="green">
+        <tr><th>Concept</th><th>Definition</th><th>Key Detail</th></tr>
+        <tr><td><strong>Repository (Repo)</strong></td><td>A directory that Git tracks — contains all project files and the entire version history in a hidden <code>.git</code> folder</td><td>Local repo = on your machine. Remote repo = on GitHub. A clone has both.</td></tr>
+        <tr><td><strong>Commit</strong></td><td>A snapshot of staged changes saved to the repository history with a message, timestamp, and author</td><td>Identified by a unique SHA hash (e.g. <code>a3b4c5d</code>). Immutable once created.</td></tr>
+        <tr><td><strong>Branch</strong></td><td>A lightweight, movable pointer to a specific commit. Lets you diverge from the main line of development</td><td>Creating a branch is instant and cheap — it's just a pointer, not a copy of files.</td></tr>
+        <tr><td><strong>Merge</strong></td><td>Integrates changes from one branch into another. Creates a merge commit if there are divergent histories</td><td>Fast-forward merge = no merge commit needed if target has no new commits.</td></tr>
+        <tr><td><strong>Clone</strong></td><td>Creates a local copy of a remote repository including all history, branches, and commits</td><td><code>git clone &lt;url&gt;</code> — sets up <code>origin</code> remote automatically.</td></tr>
+        <tr><td><strong>Pull</strong></td><td>Fetches changes from a remote branch AND merges them into your local branch in one step</td><td>= <code>git fetch</code> + <code>git merge</code>. Use <code>git pull --rebase</code> for cleaner history.</td></tr>
+        <tr><td><strong>Push</strong></td><td>Uploads local branch commits to the remote repository</td><td>Requires write access. Rejected if remote has new commits you haven't pulled.</td></tr>
+        <tr><td><strong>Fetch</strong></td><td>Downloads changes from remote but does NOT merge them into your local branch</td><td>Safe — doesn't modify your working files. Good for reviewing remote changes first.</td></tr>
+        <tr><td><strong>Staging Area (Index)</strong></td><td>A preparation area where you choose which changes to include in your next commit</td><td><code>git add &lt;file&gt;</code> moves changes to staging. <code>git commit</code> saves staged changes.</td></tr>
+        <tr><td><strong>Working Directory</strong></td><td>Your local files as they currently exist on disk — may have unstaged changes</td><td>Three states: Untracked, Modified (tracked but not staged), Staged</td></tr>
+        <tr><td><strong>Remote</strong></td><td>A named reference to a remote repository URL. <code>origin</code> is the default name for the repo you cloned from</td><td>Can have multiple remotes: <code>git remote add upstream &lt;url&gt;</code></td></tr>
+        <tr><td><strong>Pull Request (PR)</strong></td><td>A GitHub feature (not Git) — a request to merge one branch into another, with review and discussion</td><td>The core collaboration mechanism on GitHub. Git itself has no concept of PRs.</td></tr>
+        <tr><td><strong>Rebase</strong></td><td>Moves or replays commits onto a new base commit — rewrites history to produce a linear commit chain</td><td>Golden rule: <strong>never rebase shared/public branches</strong>. Only rebase local feature branches.</td></tr>
+        <tr><td><strong>Stash</strong></td><td>Temporarily saves uncommitted changes so you can switch branches without committing half-done work</td><td><code>git stash</code> saves. <code>git stash pop</code> restores. Stack-based (LIFO).</td></tr>
+        <tr><td><strong>Tag</strong></td><td>A named pointer to a specific commit — typically used to mark release versions (v1.0.0)</td><td>Annotated tags store metadata (author, message). Lightweight tags are just pointers.</td></tr>
+        <tr><td><strong>Fork</strong></td><td>A GitHub copy of someone else's repo into your account — for contributing to projects you don't own</td><td>Forks maintain a connection to the upstream repo for syncing changes.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head green"><div class="ch-icon">🔢</div><h4>Git File States — The Three-State Model</h4></div>
+    <div class="card-body">
+      <div class="flow">
+        <div class="flow-step green">Untracked / Modified<br><small style="font-weight:400">Working Directory</small></div>
+        <div class="flow-arrow">→ git add →</div>
+        <div class="flow-step">Staged<br><small style="font-weight:400">Staging Area (Index)</small></div>
+        <div class="flow-arrow">→ git commit →</div>
+        <div class="flow-step purple">Committed<br><small style="font-weight:400">Local Repository</small></div>
+        <div class="flow-arrow">→ git push →</div>
+        <div class="flow-step green">Remote<br><small style="font-weight:400">GitHub</small></div>
+      </div>
+      <div class="tip-box" style="margin-top:12px"><p><strong>Exam tip:</strong> <code>git status</code> shows which state each file is in. <code>git diff</code> shows unstaged changes. <code>git diff --staged</code> shows staged changes. <code>git log</code> shows commit history.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head green"><div class="ch-icon">📟</div><h4>Essential Git Commands</h4></div>
+    <div class="card-body">
+      <table class="green">
+        <tr><th>Command</th><th>What it does</th></tr>
+        <tr><td><code>git init</code></td><td>Initialise a new Git repository in the current directory (creates <code>.git</code> folder)</td></tr>
+        <tr><td><code>git clone &lt;url&gt;</code></td><td>Copy a remote repository locally, including all history</td></tr>
+        <tr><td><code>git add &lt;file&gt;</code> / <code>git add .</code></td><td>Stage specific file(s) or all changes in working directory</td></tr>
+        <tr><td><code>git commit -m "message"</code></td><td>Save staged changes to local repository with a descriptive message</td></tr>
+        <tr><td><code>git status</code></td><td>Show working directory and staging area status</td></tr>
+        <tr><td><code>git log</code></td><td>Show commit history (use <code>--oneline</code> for compact view)</td></tr>
+        <tr><td><code>git branch &lt;name&gt;</code></td><td>Create a new branch (does not switch to it)</td></tr>
+        <tr><td><code>git checkout -b &lt;name&gt;</code></td><td>Create AND switch to a new branch (modern: <code>git switch -c &lt;name&gt;</code>)</td></tr>
+        <tr><td><code>git merge &lt;branch&gt;</code></td><td>Merge specified branch into current branch</td></tr>
+        <tr><td><code>git pull</code></td><td>Fetch and merge remote changes into current branch</td></tr>
+        <tr><td><code>git push origin &lt;branch&gt;</code></td><td>Push local branch to remote (origin)</td></tr>
+        <tr><td><code>git revert &lt;commit&gt;</code></td><td>Create a new commit that undoes a specific commit — <strong>safe for shared branches</strong></td></tr>
+        <tr><td><code>git reset --hard &lt;commit&gt;</code></td><td>Move HEAD to a commit, discarding all changes after it — <strong>destructive, not for shared branches</strong></td></tr>
+        <tr><td><code>git stash</code></td><td>Temporarily shelve uncommitted changes</td></tr>
+        <tr><td><code>git tag v1.0.0</code></td><td>Tag current commit as a version release</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Git Fundamentals</h4>
+    <ul>
+      <li>Git is <strong>distributed</strong> — every developer has the full history locally. No server required to commit.</li>
+      <li><strong>Commit early, commit often</strong> — each commit is a safe point. Small, atomic commits are best practice.</li>
+      <li>A branch is just a <strong>pointer to a commit</strong> — creating one is instant and uses no extra disk space</li>
+      <li><code>git revert</code> = safe (adds a new commit). <code>git reset --hard</code> = dangerous (deletes commits from history)</li>
+      <li>Pull = fetch + merge. Always pull before pushing to avoid conflicts.</li>
+      <li>The <code>.gitignore</code> file tells Git which files/folders to never track (e.g. node_modules, .env, build artefacts)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DOMAIN 1: GITHUB SPECIFIC ===== -->
+<div id="d1-github" class="domain-header dh-green">
+  <div class="dh-icon">🐙</div>
+  <h2>Domain 1 — GitHub Platform, Accounts &amp; GitHub Flow</h2>
+  <span class="dh-badge">25–30%</span>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <div class="card-head green"><div class="ch-icon">⚡</div><h4>Git vs GitHub — The Critical Distinction</h4></div>
+    <div class="card-body">
+      <div class="compare-grid">
+        <div class="compare-box slate">
+          <h4>Git</h4>
+          <ul><li>Free, open-source <strong>version control system</strong></li><li>Runs locally on your machine (command-line tool)</li><li>Has no UI, no collaboration features natively</li><li>Created by Linus Torvalds in 2005</li><li>Works entirely offline</li><li>No accounts, no organisations</li></ul>
+        </div>
+        <div class="compare-box green">
+          <h4>GitHub</h4>
+          <ul><li>A <strong>cloud-hosted platform</strong> built on top of Git</li><li>Adds collaboration: Issues, PRs, Discussions, Actions</li><li>Web UI + API + CLI (<code>gh</code>)</li><li>Owned by Microsoft (acquired 2018)</li><li>Adds project management, CI/CD, security scanning</li><li>Has accounts, organisations, enterprises</li></ul>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Exam Trap</div>
+        <p><strong>Pull Requests are GitHub, NOT Git.</strong> Git has no concept of a PR. Git has <code>git merge</code> and <code>git pull</code>. PRs are a GitHub (and GitLab, Bitbucket etc.) feature layered on top.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head green"><div class="ch-icon">👤</div><h4>GitHub Account Types &amp; Plans</h4></div>
+    <div class="card-body">
+      <table class="green">
+        <tr><th>Account / Plan Type</th><th>Description</th><th>Key Capabilities</th></tr>
+        <tr><td><strong>Personal (Free)</strong></td><td>Individual GitHub account — default account type. Free plan.</td><td>Unlimited public &amp; private repos, basic Actions minutes, limited Codespaces</td></tr>
+        <tr><td><strong>GitHub Pro</strong></td><td>Paid upgrade for individual accounts</td><td>Advanced code review tools, more Codespaces hours, GitHub Pages for private repos, insights</td></tr>
+        <tr><td><strong>GitHub Team</strong></td><td>Organisation-level plan for small to medium teams</td><td>Team management, required reviewers, draft PRs, code owners, protected branches at org level</td></tr>
+        <tr><td><strong>GitHub Enterprise</strong></td><td>Enterprise-level plan — comes in Cloud (GHEC) and Server (GHES) flavours</td><td>SAML SSO, Enterprise Managed Users (EMUs), advanced audit logs, policy enforcement at enterprise level, GHES = self-hosted</td></tr>
+        <tr><td><strong>Organisation</strong></td><td>A shared account for teams/companies — contains members, teams, and repos</td><td>Centrally manage access, billing, settings, and policies across multiple repos</td></tr>
+        <tr><td><strong>Enterprise Account</strong></td><td>Parent container managing multiple organisations under one umbrella</td><td>Policy enforcement across all orgs, centralised billing, enterprise-wide Copilot policies</td></tr>
+      </table>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ GHEC vs GHES</div>
+        <ul>
+          <li><strong>GitHub Enterprise Cloud (GHEC)</strong> — hosted by GitHub on github.com. No infrastructure to manage.</li>
+          <li><strong>GitHub Enterprise Server (GHES)</strong> — self-hosted on your own infrastructure (on-prem or cloud VMs). You manage the server.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head green"><div class="ch-icon">🌊</div><h4>GitHub Flow — The Core Workflow</h4></div>
+    <div class="card-body">
+      <p class="body-text">GitHub Flow is a lightweight, branch-based workflow designed for continuous delivery. It is the official GitHub-recommended workflow and is tested heavily in GH-900.</p>
+      <div class="flow">
+        <div class="flow-step green">1. Create Branch<br><small style="font-weight:400">from main</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">2. Add Commits<br><small style="font-weight:400">make changes</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step purple">3. Open PR<br><small style="font-weight:400">request review</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">4. Discuss &amp; Review<br><small style="font-weight:400">feedback loop</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step green">5. Merge to main<br><small style="font-weight:400">deploy</small></div>
+      </div>
+      <div class="compare-grid" style="margin-top:14px">
+        <div class="compare-box green">
+          <h4>GitHub Flow — Key Rules</h4>
+          <ul>
+            <li>The <code>main</code> branch is <strong>always deployable</strong></li>
+            <li>All work happens on named feature branches (never directly on main)</li>
+            <li>Branches describe the work: <code>feature/add-login</code>, <code>fix/null-pointer</code></li>
+            <li>Open a PR early for visibility and discussion, even before it's done (Draft PR)</li>
+            <li>After review and CI passes → merge → deploy immediately</li>
+          </ul>
+        </div>
+        <div class="compare-box slate">
+          <h4>GitHub Flow vs Git Flow</h4>
+          <ul>
+            <li><strong>GitHub Flow</strong> = simple, 1 main branch, continuous delivery — best for web apps deploying frequently</li>
+            <li><strong>Git Flow</strong> = more complex, has main + develop + release + hotfix branches — better for versioned software with scheduled releases</li>
+            <li>GH-900 tests <strong>GitHub Flow</strong> specifically — not Git Flow</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head green"><div class="ch-icon">✍️</div><h4>Markdown — GitHub Flavoured Markdown (GFM)</h4></div>
+    <div class="card-body">
+      <p class="body-text">Markdown is a lightweight markup language used throughout GitHub — READMEs, issues, PRs, comments, wikis, and discussions all support GitHub Flavoured Markdown (GFM).</p>
+      <table class="green">
+        <tr><th>Syntax</th><th>Output</th><th>Use Case</th></tr>
+        <tr><td><code># Heading 1</code>, <code>## H2</code>, <code>### H3</code></td><td>Headings of different sizes</td><td>Structure documents and READMEs</td></tr>
+        <tr><td><code>**bold**</code>, <code>*italic*</code></td><td><strong>Bold</strong>, <em>Italic</em></td><td>Emphasis in issues and PRs</td></tr>
+        <tr><td><code>[text](url)</code></td><td>Hyperlink</td><td>Link to issues, PRs, external docs</td></tr>
+        <tr><td><code>![alt](image-url)</code></td><td>Embed image</td><td>Screenshots in issues, README badges</td></tr>
+        <tr><td><code>`inline code`</code></td><td>Monospace inline</td><td>Command names, file paths, variables</td></tr>
+        <tr><td>Triple backticks + language</td><td>Syntax-highlighted code block</td><td>Code snippets in PRs and issues</td></tr>
+        <tr><td><code>- item</code> or <code>* item</code></td><td>Unordered list</td><td>Steps, features, requirements</td></tr>
+        <tr><td><code>1. item</code></td><td>Ordered list</td><td>Numbered steps, instructions</td></tr>
+        <tr><td><code>- [x] task</code>, <code>- [ ] task</code></td><td>Task list (checked/unchecked)</td><td>Progress tracking in issues and PRs</td></tr>
+        <tr><td><code>&gt; text</code></td><td>Blockquote</td><td>Quote earlier messages in discussions</td></tr>
+        <tr><td><code>---</code></td><td>Horizontal rule</td><td>Section dividers in READMEs</td></tr>
+        <tr><td><code>@username</code></td><td>Mention a person — notifies them</td><td>Assign action items in issues/PRs</td></tr>
+        <tr><td><code>#123</code></td><td>Link to issue or PR #123</td><td>Cross-reference work items</td></tr>
+        <tr><td><code>| col | col |</code> with <code>|---|---|</code></td><td>Table</td><td>Comparison data in docs</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">📱</div><h4>GitHub Desktop vs GitHub Mobile</h4></div>
+    <div class="card-body">
+      <div class="compare-grid">
+        <div class="compare-box blue">
+          <h4>GitHub Desktop</h4>
+          <ul>
+            <li>Free, cross-platform GUI application (Windows + macOS)</li>
+            <li>Visual Git operations without command line</li>
+            <li>Clone repos, create branches, commit changes, push/pull visually</li>
+            <li>Visual diff viewer — see exactly what changed before committing</li>
+            <li>Best for: developers who prefer GUI over CLI, onboarding new contributors</li>
+            <li>NOT available on Linux officially</li>
+          </ul>
+        </div>
+        <div class="compare-box green">
+          <h4>GitHub Mobile</h4>
+          <ul>
+            <li>iOS and Android app</li>
+            <li>Review and merge pull requests on the go</li>
+            <li>Triage and respond to issues and notifications</li>
+            <li>Approve CI checks, add reviews, merge PRs</li>
+            <li>NOT for heavy coding — review and collaboration, not development</li>
+            <li>Best for: staying informed and responding to team activity remotely</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Exam Distinction</div>
+        <ul>
+          <li><strong>GitHub Desktop</strong> = GUI for Git operations on your computer (commit, push, branch)</li>
+          <li><strong>GitHub Mobile</strong> = review, triage, and respond on your phone (NOT for coding)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — GitHub Platform</h4>
+    <ul>
+      <li>GitHub = cloud platform built ON TOP of Git. PRs, Issues, Actions are GitHub features — not Git features.</li>
+      <li>GitHub Flow: branch → commits → PR → review → merge to main. Main is ALWAYS deployable.</li>
+      <li>Organisation = shared account for teams. Enterprise = umbrella managing multiple organisations.</li>
+      <li>GHEC = GitHub-hosted. GHES = Self-hosted (you manage the infrastructure).</li>
+      <li>Markdown task lists (<code>- [x]</code>) in the first comment of a PR automatically create a progress bar in the PR list view.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DOMAIN 2: REPOSITORIES ===== -->
+<div id="d2-repos" class="domain-header dh-blue">
+  <div class="dh-icon">📁</div>
+  <h2>Domain 2 — Working with GitHub Repositories</h2>
+  <span class="dh-badge">10–15%</span>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">📄</div><h4>Key Repository Files — Know Each One</h4></div>
+    <div class="card-body">
+      <table class="blue">
+        <tr><th>File</th><th>Location</th><th>Purpose</th><th>Exam Detail</th></tr>
+        <tr><td><strong>README.md</strong></td><td>Root (or <code>docs/</code>, <code>.github/</code>)</td><td>Project introduction, setup instructions, badges, usage examples</td><td>Automatically rendered on the repository homepage. Most important file for discoverability.</td></tr>
+        <tr><td><strong>LICENSE</strong></td><td>Root</td><td>Defines legal rights to use, copy, modify, and distribute the code</td><td>Without a license, no one legally has the right to use the code. Required for open-source projects. Common: MIT, Apache 2.0, GPL.</td></tr>
+        <tr><td><strong>CONTRIBUTING.md</strong></td><td>Root or <code>.github/</code></td><td>Guidelines for how external contributors should submit issues and PRs</td><td>GitHub shows a "Please read our contributing guidelines" banner when someone opens an issue or PR if this file exists.</td></tr>
+        <tr><td><strong>CODEOWNERS</strong></td><td><code>.github/</code>, root, or <code>docs/</code></td><td>Defines who is automatically requested as a reviewer for changes to specific files or directories</td><td>Uses glob patterns. Format: <code>*.js @username</code>. Works with branch protection "required reviews" feature.</td></tr>
+        <tr><td><strong>SECURITY.md</strong></td><td>Root or <code>.github/</code></td><td>Security policy — how to report vulnerabilities responsibly (private disclosure process)</td><td>Enables a "Report a vulnerability" button on the repo's Security tab. Keeps vulnerability reports private.</td></tr>
+        <tr><td><strong>.gitignore</strong></td><td>Root (or subdirs)</td><td>Patterns of files Git should ignore — not track or commit</td><td>Language-specific templates available at github.com/github/gitignore. Committed to the repo.</td></tr>
+        <tr><td><strong>CHANGELOG.md</strong></td><td>Root</td><td>Human-readable log of notable changes in each version</td><td>Best practice for versioned packages. Not automatically generated by GitHub — created manually or via tools.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🏗️</div><h4>Creating and Organising Repositories</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-blue"><div class="lbl">Template Repositories</div><div class="val">Mark a repo as a template so others can generate a new repo with the same file structure, without the commit history. Better than forking for reusable project starters.</div></div>
+        <div class="info-box accent-green"><div class="lbl">Repository Visibility</div><div class="val">Public = visible to everyone. Private = visible only to invited collaborators. Internal = visible to all org members (Enterprise only).</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Repository Topics</div><div class="val">Tags on a repo that make it discoverable via GitHub Explore and search. e.g. <code>python</code>, <code>data-engineering</code>, <code>azure</code>.</div></div>
+        <div class="info-box accent-slate"><div class="lbl">Branches Strategy</div><div class="val">Create branches for features, fixes, and experiments. Main (default) = always deployable. Branch naming convention matters for automation.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Default Branch</div><div class="val">The branch shown by default — usually <code>main</code> (was <code>master</code> historically). Can be changed in settings. PRs merge to the default branch by default.</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Archiving a Repo</div><div class="val">Makes a repo read-only — no new commits, issues, or PRs. Useful for deprecated projects. Can be unarchived later.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">📊</div><h4>Repository Insights, Metrics &amp; Stars</h4></div>
+    <div class="card-body">
+      <table class="blue">
+        <tr><th>Insight / Feature</th><th>What it Shows</th></tr>
+        <tr><td><strong>Stars (⭐)</strong></td><td>Other users bookmarking your repo — a signal of popularity and interest. Not followers.</td></tr>
+        <tr><td><strong>Watchers</strong></td><td>Users who receive notifications for all activity on the repo (issues, PRs, releases)</td></tr>
+        <tr><td><strong>Forks</strong></td><td>Count of how many times the repo has been forked — shows community engagement</td></tr>
+        <tr><td><strong>Contributors</strong></td><td>List of all accounts that have committed to the repo — with commit counts</td></tr>
+        <tr><td><strong>Traffic</strong></td><td>Views and clones over the last 14 days — shows reach and interest</td></tr>
+        <tr><td><strong>Pulse</strong></td><td>Weekly summary: merged PRs, open PRs, open issues, closed issues — team velocity snapshot</td></tr>
+        <tr><td><strong>Community Standards</strong></td><td>Checklist: README, LICENSE, CONTRIBUTING, SECURITY, Code of Conduct — completeness score</td></tr>
+        <tr><td><strong>Dependency Graph</strong></td><td>Visual of all direct and transitive dependencies declared in manifest files (package.json, requirements.txt, etc.)</td></tr>
+        <tr><td><strong>Dependabot Alerts</strong></td><td>Automated alerts when dependencies have known security vulnerabilities (CVEs)</td></tr>
+        <tr><td><strong>Feature Previews</strong></td><td>Opt in to beta features for your account from GitHub settings — try features before GA release</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Repositories</h4>
+    <ul>
+      <li>CODEOWNERS file automatically requests reviews from the right people when specific files change</li>
+      <li>SECURITY.md enables private vulnerability reporting — the "Report a vulnerability" button on the Security tab</li>
+      <li>Template repos = generate new repo with same file structure, <strong>no commit history</strong>. Fork = copy with full history.</li>
+      <li>Stars = bookmarks (popularity signal). Watchers = receive all activity notifications. Different things!</li>
+      <li>Internal visibility = Enterprise-only feature — visible to all org members but not the public</li>
+      <li>Archived repos = fully read-only. All content preserved. Can be unarchived.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DOMAIN 3: COLLABORATION ===== -->
+<div id="d3-collab" class="domain-header dh-purple">
+  <div class="dh-icon">🤝</div>
+  <h2>Domain 3 — Collaboration on GitHub</h2>
+  <span class="dh-badge">10–15%</span>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🐛</div><h4>Issues — The Task Tracker</h4></div>
+    <div class="card-body">
+      <p class="body-text">Issues are the primary way to track tasks, bugs, feature requests, and discussions in a GitHub repository. Every open-source project uses issues for community contributions.</p>
+      <div class="info-grid">
+        <div class="info-box accent-purple"><div class="lbl">Issue Templates</div><div class="val">Pre-filled forms that guide users to provide the right information when filing a bug report or feature request. Stored in <code>.github/ISSUE_TEMPLATE/</code>.</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Labels</div><div class="val">Colour-coded tags to categorise issues: <code>bug</code>, <code>enhancement</code>, <code>help wanted</code>, <code>good first issue</code>. Filterable in the issues list.</div></div>
+        <div class="info-box accent-green"><div class="lbl">Milestones</div><div class="val">Group issues and PRs toward a goal with a deadline and progress bar. e.g. "v2.0 Release" milestone with all required issues/PRs.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Assignees</div><div class="val">Assign one or more people responsibility for an issue. Appears in their notifications and dashboard. Useful for accountability.</div></div>
+        <div class="info-box accent-slate"><div class="lbl">Closing Keywords</div><div class="val">In a PR description or commit message: <code>Closes #45</code>, <code>Fixes #45</code>, <code>Resolves #45</code> automatically closes the linked issue when the PR merges.</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Filters</div><div class="val">Filter issues by label, assignee, milestone, author, state (open/closed), or custom search. Use <code>is:issue is:open label:bug</code> syntax.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🔀</div><h4>Pull Requests — In Depth</h4></div>
+    <div class="card-body">
+      <p class="body-text">A Pull Request (PR) is a request to merge changes from one branch into another. It's the central collaboration mechanism — triggering code review, CI checks, and discussion before merging.</p>
+      <table class="purple">
+        <tr><th>Feature</th><th>Description</th></tr>
+        <tr><td><strong>Draft PR</strong></td><td>Mark a PR as "Draft" to signal it's work in progress — reviewers won't be auto-requested, and merge is blocked. Ready for review → "Mark as ready for review".</td></tr>
+        <tr><td><strong>Required Reviewers</strong></td><td>Branch protection rule requiring a minimum number of approved reviews before merging. Combined with CODEOWNERS for automatic reviewer assignment.</td></tr>
+        <tr><td><strong>PR Templates</strong></td><td>Pre-fill the PR description with a template (<code>.github/PULL_REQUEST_TEMPLATE.md</code>). Prompts authors to describe changes, test steps, related issues.</td></tr>
+        <tr><td><strong>Link to Issue</strong></td><td>Use <code>Closes #45</code> in the PR body to auto-close the linked issue when PR merges. Also shows up in the issue's "linked PRs" section.</td></tr>
+        <tr><td><strong>Review Types</strong></td><td><strong>Approve</strong> = ready to merge. <strong>Request Changes</strong> = must fix before merging. <strong>Comment</strong> = feedback without explicit approval/rejection.</td></tr>
+        <tr><td><strong>Merge Strategies</strong></td><td><strong>Merge Commit</strong> = preserves all commits + adds a merge commit. <strong>Squash and Merge</strong> = combines all commits into one. <strong>Rebase and Merge</strong> = replays commits onto main linearly (no merge commit).</td></tr>
+        <tr><td><strong>Auto-merge</strong></td><td>Automatically merge when all required checks pass and required reviews are approved — no manual merging needed.</td></tr>
+        <tr><td><strong>Delete branch after merge</strong></td><td>Repository setting to automatically delete the feature branch after a PR is merged — keeps the branch list clean.</td></tr>
+      </table>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Merge Strategy Comparison</div>
+        <ul>
+          <li><strong>Merge commit:</strong> Preserves all commits + full history. Main has a merge commit. Good for audit trail.</li>
+          <li><strong>Squash and merge:</strong> All commits → 1 commit on main. Cleaner history. Loses individual commit messages.</li>
+          <li><strong>Rebase and merge:</strong> Each commit placed linearly on main. No merge commit. Looks like everything was committed directly to main.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">💬</div><h4>Discussions, Gists, Wikis, and Pages</h4></div>
+    <div class="card-body">
+      <table class="purple">
+        <tr><th>Tool</th><th>Purpose</th><th>Key Detail</th></tr>
+        <tr><td><strong>GitHub Discussions</strong></td><td>Forum-style conversations attached to a repo — for Q&amp;A, announcements, ideas, polls</td><td>Different from Issues: Discussions are open-ended conversations. Issues are work items with open/closed state. Discussions can have answers marked as "Answered".</td></tr>
+        <tr><td><strong>Gists</strong></td><td>Share snippets of code, notes, or text — hosted independently from a full repo</td><td>Public gists = discoverable. Secret gists = URL-only access (not truly private). Gists ARE git repos — can be cloned, forked, and versioned.</td></tr>
+        <tr><td><strong>GitHub Wiki</strong></td><td>Documentation pages attached to a repository — good for detailed project documentation</td><td>A separate Git repo behind the scenes. Editable by collaborators. Good for structured, evolving docs. Limited formatting vs a docs site.</td></tr>
+        <tr><td><strong>GitHub Pages</strong></td><td>Free static website hosting directly from a GitHub repository</td><td>Publish from: <code>main</code> branch root, <code>main</code> <code>/docs</code> folder, or a dedicated <code>gh-pages</code> branch. Supports Jekyll natively. Custom domains supported. URL: <code>username.github.io/repo</code>.</td></tr>
+      </table>
+      <div class="compare-grid" style="margin-top:14px">
+        <div class="compare-box purple">
+          <h4>Issues vs Discussions</h4>
+          <ul>
+            <li><strong>Issue:</strong> A task, bug, or feature request — has Open/Closed state — tracked in project boards</li>
+            <li><strong>Discussion:</strong> Open-ended conversation, Q&amp;A, announcements — no done/closed action required — can be answered</li>
+            <li>Convert a Discussion to an Issue if it reveals actionable work</li>
+          </ul>
+        </div>
+        <div class="compare-box blue">
+          <h4>Wiki vs GitHub Pages</h4>
+          <ul>
+            <li><strong>Wiki:</strong> Attached to repo, simple Markdown docs, contributors can edit, no custom styling</li>
+            <li><strong>Pages:</strong> Full static site (HTML/CSS/JS or Jekyll), custom domain, deployed from your repo code</li>
+            <li>Pages = public-facing site. Wiki = internal reference documentation.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🔔</div><h4>Notifications &amp; Subscriptions</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-purple"><div class="lbl">Watching a Repo</div><div class="val">Receive notifications for ALL activity: issues, PRs, releases, discussions. Can select specific events only (e.g. releases only).</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Participating</div><div class="val">Auto-subscribed to threads you comment on, are mentioned in (@username), or are assigned to.</div></div>
+        <div class="info-box accent-green"><div class="lbl">Ignoring a Repo</div><div class="val">Stop all notifications from a repo — even if directly @mentioned. Use for noisy repos you don't want to follow.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Notification Routing</div><div class="val">Route notifications to email, web/mobile inbox, or both. GitHub inbox = notification centre at github.com/notifications.</div></div>
+        <div class="info-box accent-slate"><div class="lbl">Saved Replies</div><div class="val">Pre-written responses you can quickly insert when responding to issues and PRs — saves time on repetitive responses (e.g. "Thanks for your report! We'll investigate.").</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Custom Routing</div><div class="val">Route org notifications to different email addresses — e.g. work repos → work email, personal repos → personal email.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Collaboration</h4>
+    <ul>
+      <li>Issues = work items (Open/Closed). Discussions = conversations (no done state, can be Answered).</li>
+      <li><code>Closes #123</code> in a PR body auto-closes issue #123 when the PR merges — linking PRs to issues</li>
+      <li>Secret Gists are NOT private — anyone with the URL can see them. They're just not indexed/discoverable.</li>
+      <li>GitHub Pages hosts static sites from your repo. URL format: <code>username.github.io/repo-name</code></li>
+      <li>Draft PRs block merging and suppress auto-reviewer requests — use for WIP visibility</li>
+      <li>Saved Replies = reusable response templates for efficient issue/PR management</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DOMAIN 4: MODERN DEV ===== -->
+<div id="d4-modern" class="domain-header dh-orange">
+  <div class="dh-icon">⚡</div>
+  <h2>Domain 4 — Modern Development: Actions, Copilot, Codespaces</h2>
+  <span class="dh-badge">10–15%</span>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <div class="card-head orange"><div class="ch-icon">🔄</div><h4>GitHub Actions — CI/CD Automation</h4></div>
+    <div class="card-body">
+      <p class="body-text">GitHub Actions is a built-in CI/CD and automation platform that runs workflows triggered by events in your repository. Workflows are defined as YAML files in <code>.github/workflows/</code>.</p>
+      <div class="info-grid">
+        <div class="info-box accent-orange"><div class="lbl">Workflow</div><div class="val">An automated process defined in a YAML file. Contains one or more jobs. Triggered by events (push, PR, schedule, manual).</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Job</div><div class="val">A set of steps that execute on the same runner. Jobs run in parallel by default, or sequentially if dependencies defined with <code>needs:</code>.</div></div>
+        <div class="info-box accent-green"><div class="lbl">Step</div><div class="val">An individual task in a job — either a shell command (<code>run:</code>) or a pre-built Action (<code>uses:</code>).</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Action</div><div class="val">A reusable unit of code (a "building block") — can be official GitHub Actions, community actions from Marketplace, or custom actions in your repo.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Runner</div><div class="val">The server that executes jobs. GitHub-hosted runners (ubuntu, windows, macos) or self-hosted runners on your own infrastructure.</div></div>
+        <div class="info-box accent-slate"><div class="lbl">Triggers (Events)</div><div class="val">push, pull_request, schedule (cron), workflow_dispatch (manual), release, issues, and 40+ other events.</div></div>
+      </div>
+      <div class="cmd-block">
+        <span class="cmd-comment"># Minimal workflow: CI on every push to main</span><br>
+        name: CI<br>
+        on: [push]<br>
+        jobs:<br>
+        &nbsp;&nbsp;build:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;runs-on: ubuntu-latest<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;steps:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="cmd-keyword">uses</span>: actions/checkout@v4<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="cmd-keyword">run</span>: echo "Hello, GitHub Actions!"
+      </div>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Key Actions Concepts for GH-900</div>
+        <ul>
+          <li>Workflows live in <code>.github/workflows/</code> as YAML files — every workflow is a file</li>
+          <li>The GitHub Marketplace hosts thousands of community-built Actions you can reuse</li>
+          <li>Secrets (API keys, tokens) are stored encrypted in repo/org settings — referenced as <code>${{ secrets.NAME }}</code></li>
+          <li>Environments let you add manual approval gates and deployment-specific secrets (e.g. production approval)</li>
+          <li>Actions has a free tier; billing is based on minutes used for private repos on hosted runners</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head orange"><div class="ch-icon">🤖</div><h4>GitHub Copilot — Tiers, Agents &amp; Capabilities</h4></div>
+    <div class="card-body">
+      <p class="body-text">GitHub Copilot is an AI-powered coding assistant. The January 2026 exam update added <strong>Copilot agents, Agent Mode, and multi-model support</strong> — these are heavily tested in the new objectives.</p>
+      <table class="orange">
+        <tr><th>Tier</th><th>Who It's For</th><th>Key Inclusions</th></tr>
+        <tr><td><strong>Copilot Free</strong></td><td>Individual developers — limited usage</td><td>Limited completions and chat messages per month. Available to all GitHub personal accounts. No credit card required.</td></tr>
+        <tr><td><strong>Copilot Individual</strong></td><td>Individual developers — unlimited</td><td>Unlimited code completions, Copilot Chat, CLI assistance, PRs summaries. Personal use. Individual billing.</td></tr>
+        <tr><td><strong>Copilot Business</strong></td><td>Teams and organisations</td><td>Everything in Individual + org-wide policy management, audit logs, IP indemnity, exclude specific files from Copilot. Per-seat billing at org level.</td></tr>
+        <tr><td><strong>Copilot Enterprise</strong></td><td>Enterprise-scale organisations</td><td>Everything in Business + personalisation to company codebase (fine-tuned on your repos), Copilot in github.com UI, Docset-based chat context, PR summaries, knowledge bases. Managed at enterprise level.</td></tr>
+      </table>
+      <div class="compare-grid" style="margin-top:14px">
+        <div class="compare-box orange">
+          <h4>Copilot Agents &amp; Agent Mode (NEW 2026)</h4>
+          <ul>
+            <li><strong>Copilot Chat:</strong> Conversational AI in your IDE — ask questions, explain code, debug, generate tests</li>
+            <li><strong>Copilot Agent Mode:</strong> Multi-step autonomous mode — Copilot can iterate on code, run tests, fix errors, and loop until a task is complete with minimal intervention</li>
+            <li><strong>Copilot Agents:</strong> Task-specific agents (e.g. coding agent, PR review agent, custom agents built with extensions) that perform specific actions on your behalf</li>
+            <li><strong>@github agent:</strong> Built-in Copilot agent that can search your codebase, PRs, issues, and docs</li>
+          </ul>
+        </div>
+        <div class="compare-box blue">
+          <h4>Multi-Model Support (NEW 2026)</h4>
+          <ul>
+            <li>Copilot now supports <strong>multiple AI models</strong> — not just OpenAI GPT-4</li>
+            <li>Available models include: GPT-4o, Claude (Anthropic), Gemini (Google), and others</li>
+            <li>Users can select which model to use for Copilot Chat in supported IDEs</li>
+            <li>Different models may perform better for different tasks (reasoning, code generation, etc.)</li>
+            <li>Managed at org/enterprise level — admins can restrict which models are available</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Copilot Tier Exam Pattern</div>
+        <ul>
+          <li>Org-wide policy management → needs <strong>Business or Enterprise</strong> (not Individual)</li>
+          <li>Personalised to company codebase / knowledge bases → needs <strong>Enterprise</strong></li>
+          <li>IP indemnity protection → needs <strong>Business or Enterprise</strong></li>
+          <li>Exclude specific files/folders from Copilot suggestions → <strong>Business or Enterprise</strong></li>
+          <li>Copilot in github.com (web UI, PR reviews) → <strong>Enterprise</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head orange"><div class="ch-icon">☁️</div><h4>GitHub Codespaces — Cloud Dev Environments</h4></div>
+    <div class="card-body">
+      <p class="body-text">GitHub Codespaces provides a complete, configurable cloud-hosted development environment — a full VS Code instance running in the cloud with your repo pre-cloned.</p>
+      <div class="info-grid">
+        <div class="info-box accent-orange"><div class="lbl">What it is</div><div class="val">A containerised dev environment hosted in the cloud — VS Code in the browser or connected via local VS Code app. No local setup needed.</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Dev Containers</div><div class="val">A Codespace is configured by a <code>devcontainer.json</code> file in <code>.devcontainer/</code> — defines the Docker image, extensions, settings, post-create scripts, and ports.</div></div>
+        <div class="info-box accent-green"><div class="lbl">Customisation</div><div class="val">Install tools, set environment variables, configure VS Code settings, install extensions — all defined in <code>devcontainer.json</code> so every team member gets the same environment.</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Prebuilds</div><div class="val">Pre-build your Codespace environment so it starts instantly (warm start) rather than building from scratch every time.</div></div>
+        <div class="info-box accent-slate"><div class="lbl">Billing</div><div class="val">Billed by compute hours (machine type) and storage. GitHub Free accounts get monthly free hours. Idle timeout to reduce costs.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Persistence</div><div class="val">Codespaces persist between sessions — your changes are saved. You can have multiple Codespaces for different branches/repos.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head orange"><div class="ch-icon">📝</div><h4>github.dev Editor — Lightweight Browser Editor</h4></div>
+    <div class="card-body">
+      <div class="compare-grid">
+        <div class="compare-box blue">
+          <h4>github.dev (press <code>.</code> on any repo)</h4>
+          <ul>
+            <li>Opens VS Code interface in the browser — instantly, no container startup</li>
+            <li>Good for reading code, making quick edits, navigating files</li>
+            <li><strong>No terminal, no runtime, no execution</strong></li>
+            <li>Can't run code, tests, or commands</li>
+            <li>Commits changes directly to GitHub</li>
+            <li>Free — no compute hours consumed</li>
+            <li>Open by pressing <code>.</code> on any repo or changing <code>github.com</code> to <code>github.dev</code></li>
+          </ul>
+        </div>
+        <div class="compare-box orange">
+          <h4>Codespaces (full dev environment)</h4>
+          <ul>
+            <li>Full containerised dev environment — takes time to start</li>
+            <li>Full terminal, can run code, install packages, run tests</li>
+            <li>Configured via <code>devcontainer.json</code></li>
+            <li>Billed by compute hours and storage</li>
+            <li>Best for actual development work</li>
+            <li>Best for onboarding — no local setup needed</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Exam Trap: github.dev vs Codespaces</div>
+        <p><strong>github.dev = no execution.</strong> You cannot run code, tests, or terminal commands. It's a lightweight code editor in the browser. For anything that requires running code → use Codespaces. The key differentiator: github.dev has <strong>no terminal</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Modern Development</h4>
+    <ul>
+      <li>GitHub Actions workflows = YAML files in <code>.github/workflows/</code>. Trigger on events. Run jobs on runners.</li>
+      <li>Copilot Business → org-level policies, audit logs. Copilot Enterprise → personalised to your codebase + knowledge bases.</li>
+      <li><strong>Agent Mode</strong> = autonomous multi-step code iteration (Copilot iterates until task complete). NEW in 2026.</li>
+      <li><strong>Multi-model support</strong> = Copilot can use GPT-4o, Claude, Gemini etc. Users select model in IDE. NEW in 2026.</li>
+      <li>github.dev = quick edits, no terminal. Codespaces = full dev environment, has terminal, billed by compute.</li>
+      <li>Dev containers (<code>devcontainer.json</code>) define the Codespace environment — tools, extensions, settings.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DOMAIN 5: PROJECTS ===== -->
+<div id="d5-projects" class="domain-header dh-teal">
+  <div class="dh-icon">📋</div>
+  <h2>Domain 5 — Project Management with GitHub</h2>
+  <span class="dh-badge">5–10%</span>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <div class="card-head teal"><div class="ch-icon">📊</div><h4>GitHub Projects (v2) — Project Tracking</h4></div>
+    <div class="card-body">
+      <p class="body-text">GitHub Projects is a flexible, spreadsheet-like tool for tracking work across repositories. Projects (v2) replaced the older "classic" Projects boards with much more power and flexibility.</p>
+      <div class="info-grid">
+        <div class="info-box accent-blue"><div class="lbl">Table Layout</div><div class="val">Spreadsheet-style view — rows = items (issues, PRs, draft tasks), columns = fields. Good for bulk editing and sorting.</div></div>
+        <div class="info-box accent-green"><div class="lbl">Board Layout</div><div class="val">Kanban-style drag-and-drop columns (e.g. Todo, In Progress, Done). Items move between columns. Visual workflow.</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Roadmap Layout</div><div class="val">Timeline/Gantt-style view — items displayed on a date axis. Requires start date and end date fields. Good for release planning.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Custom Fields</div><div class="val">Add fields to items: Text, Number, Date, Single Select (dropdown), Iteration (sprints), Tracks/Tracked-by. Fully customisable.</div></div>
+        <div class="info-box accent-slate"><div class="lbl">Workflows (Automation)</div><div class="val">Auto-move items based on events: "When issue opened → set status to Todo", "When PR merged → set status to Done". Built-in GitHub Actions integration.</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Views</div><div class="val">A Project can have multiple saved views — each view is a different filter/grouping/layout of the same data. e.g. "My items", "Sprint backlog", "By assignee".</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head teal"><div class="ch-icon">🏷️</div><h4>Labels, Milestones &amp; Assignees</h4></div>
+    <div class="card-body">
+      <table class="blue">
+        <tr><th>Tool</th><th>Purpose</th><th>Scope</th></tr>
+        <tr><td><strong>Labels</strong></td><td>Categorise issues and PRs with coloured tags. Default labels: bug, enhancement, help wanted, good first issue, question, wontfix, duplicate, invalid.</td><td>Per repository. Can create custom labels. Labels are repo-specific (not cross-repo).</td></tr>
+        <tr><td><strong>Milestones</strong></td><td>Group issues and PRs toward a goal with a due date and progress bar (% closed).</td><td>Per repository. Create milestone → attach issues/PRs. Shows progress toward a release.</td></tr>
+        <tr><td><strong>Assignees</strong></td><td>Assign one or more people to an issue or PR. Shows ownership and responsibility.</td><td>Per issue/PR. Person must be a repo collaborator or org member to be assigned.</td></tr>
+        <tr><td><strong>Saved Replies</strong></td><td>Reusable text snippets for issue/PR comments — save time on repetitive responses.</td><td>Per account (personal to the user). Accessible in any repo's comment box via the saved reply button.</td></tr>
+        <tr><td><strong>Project Insights</strong></td><td>Charts showing item status over time — burn-up charts, velocity, items by status, items by assignee.</td><td>Per Project. Historical data of item state changes. Helps track team productivity.</td></tr>
+        <tr><td><strong>Iterations / Sprints</strong></td><td>Custom field in Projects for sprint-based planning. Define sprint duration and number.</td><td>Per Project. Items can be tagged to a sprint iteration and tracked on the board.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Project Management</h4>
+    <ul>
+      <li>GitHub Projects (v2) = 3 layouts: Table (spreadsheet), Board (Kanban), Roadmap (timeline/Gantt)</li>
+      <li>Labels = categorical tags on issues/PRs. Milestones = group toward a goal with deadline.</li>
+      <li>Saved Replies = personal reusable comment templates — scoped to your account, usable in any repo</li>
+      <li>Workflows in Projects auto-move items (e.g. merged PR → Done) — no GitHub Actions YAML needed</li>
+      <li>Project Insights shows burn-up charts and velocity — useful for sprint retrospectives</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DOMAIN 6: SECURITY ===== -->
+<div id="d6-security" class="domain-header dh-slate">
+  <div class="dh-icon">🔒</div>
+  <h2>Domain 6 — Privacy, Security &amp; Administration</h2>
+  <span class="dh-badge">10–15%</span>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <div class="card-head dark"><div class="ch-icon">🛡️</div><h4>Account Security — 2FA, Passkeys &amp; Tokens</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-green"><div class="lbl">Two-Factor Authentication (2FA)</div><div class="val">Require a second verification step when signing in — TOTP app (Google Authenticator, Authy), SMS, hardware security key (YubiKey). Org admins can require 2FA for all members.</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Passkeys (NEW 2026)</div><div class="val">Phishing-resistant, passwordless authentication using biometrics (Touch ID, Face ID, Windows Hello) or hardware keys. More secure than passwords + 2FA. Replaces password-based login entirely.</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Personal Access Tokens (PAT)</div><div class="val">Used to authenticate API requests or Git operations over HTTPS instead of a password. Fine-grained PATs restrict scope to specific repos and permissions.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">SSH Keys</div><div class="val">Authenticate Git operations over SSH. Add public key to GitHub account. More secure than HTTPS/password for automated systems.</div></div>
+        <div class="info-box accent-slate"><div class="lbl">OAuth Apps &amp; GitHub Apps</div><div class="val">Third-party apps that access GitHub on your behalf. GitHub Apps have finer-grained permissions and are preferred over OAuth Apps for integrations.</div></div>
+        <div class="info-box accent-green"><div class="lbl">Secret Scanning</div><div class="val">GitHub automatically scans repos for accidentally committed credentials/secrets (API keys, tokens) and alerts the owner. Can block pushes containing secrets (push protection).</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head dark"><div class="ch-icon">👥</div><h4>Repository &amp; Organisation Roles</h4></div>
+    <div class="card-body">
+      <table class="slate">
+        <tr><th>Role</th><th>Level</th><th>Permissions</th></tr>
+        <tr><td><strong>Read</strong></td><td>Repository</td><td>View and clone the repo. Create issues. Comment on issues/PRs. Cannot push code.</td></tr>
+        <tr><td><strong>Triage</strong></td><td>Repository</td><td>Read + manage issues and PRs (label, assign, close) without write access to code.</td></tr>
+        <tr><td><strong>Write</strong></td><td>Repository</td><td>Read + Triage + push to non-protected branches, create/delete branches, manage settings.</td></tr>
+        <tr><td><strong>Maintain</strong></td><td>Repository</td><td>Write + manage repo settings (not sensitive settings). Ideal for project maintainers.</td></tr>
+        <tr><td><strong>Admin</strong></td><td>Repository</td><td>Full control including sensitive settings, delete repo, add/remove collaborators, manage branch protection.</td></tr>
+        <tr><td><strong>Member</strong></td><td>Organisation</td><td>Default org member role. Access to org repos based on team membership and repo permissions.</td></tr>
+        <tr><td><strong>Owner</strong></td><td>Organisation</td><td>Full administrative access to the org — manage members, billing, settings, all repos.</td></tr>
+        <tr><td><strong>Billing Manager</strong></td><td>Organisation</td><td>Manage billing settings only — cannot access repos or manage members.</td></tr>
+        <tr><td><strong>Security Manager</strong></td><td>Organisation</td><td>View security alerts and manage security policies across all repos in the org.</td></tr>
+      </table>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Role Exam Pattern</div>
+        <p>Scenario: "Allow someone to manage issues and PRs but NOT commit code" → <strong>Triage</strong> role. "Allow someone to manage repo settings but not delete it" → <strong>Maintain</strong> role. "Someone needs full admin including delete" → <strong>Admin</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head dark"><div class="ch-icon">🌿</div><h4>Branch Protection Rules</h4></div>
+    <div class="card-body">
+      <p class="body-text">Branch protection rules prevent direct pushes to important branches and enforce code review workflows. Applied to specific branch patterns (e.g. <code>main</code>, <code>release/*</code>).</p>
+      <div class="info-grid">
+        <div class="info-box accent-green"><div class="lbl">Require Pull Request Reviews</div><div class="val">Minimum number of approving reviews required before a PR can be merged. Combined with CODEOWNERS to require domain-expert review.</div></div>
+        <div class="info-box accent-blue"><div class="lbl">Require Status Checks</div><div class="val">CI checks (GitHub Actions workflows) must pass before merging. The branch must be up-to-date with the base branch.</div></div>
+        <div class="info-box accent-purple"><div class="lbl">Require Signed Commits</div><div class="val">All commits must be GPG or SSH signed — verifies commit authorship. Prevents spoofed commits.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">Block Force Pushes</div><div class="val">Prevents <code>git push --force</code> which could overwrite history on the protected branch.</div></div>
+        <div class="info-box accent-slate"><div class="lbl">Restrict Who Can Push</div><div class="val">Only specific users, teams, or apps can push to the branch — everyone else must use PRs.</div></div>
+        <div class="info-box accent-red"><div class="lbl">Require Linear History</div><div class="val">Disallow merge commits — forces squash merge or rebase merge to keep a linear commit history.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head dark"><div class="ch-icon">🏢</div><h4>Enterprise Managed Users (EMUs) &amp; Organisation Management</h4></div>
+    <div class="card-body">
+      <div class="compare-grid">
+        <div class="compare-box slate">
+          <h4>Enterprise Managed Users (EMUs)</h4>
+          <ul>
+            <li>Enterprise-level identity management — user accounts are <strong>provisioned and controlled by the enterprise's Identity Provider (IdP)</strong> (e.g. Entra ID, Okta)</li>
+            <li>EMU accounts can ONLY access the enterprise's resources — cannot contribute to external public repos</li>
+            <li>Usernames and profile info are managed by the IdP, not chosen by the user</li>
+            <li>Best for enterprises requiring tight control over developer identity and access</li>
+            <li>Requires SAML SSO and SCIM provisioning</li>
+          </ul>
+        </div>
+        <div class="compare-box blue">
+          <h4>SAML SSO &amp; Teams</h4>
+          <ul>
+            <li><strong>SAML SSO:</strong> Users sign in to GitHub using their corporate identity (Entra ID, Okta). Required for GitHub Enterprise Cloud.</li>
+            <li><strong>Teams:</strong> Groups within an organisation used to manage repo access collectively. Assign teams to repos with specific permissions.</li>
+            <li><strong>Team Sync:</strong> Sync GitHub Teams membership with IdP groups automatically — no manual team management.</li>
+            <li>Org-wide Copilot policies: Enterprise admins can enable/disable Copilot features across all org members.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head dark"><div class="ch-icon">👁️</div><h4>Repository Privacy &amp; Visibility</h4></div>
+    <div class="card-body">
+      <table class="slate">
+        <tr><th>Visibility</th><th>Who Can See</th><th>Available On</th></tr>
+        <tr><td><strong>Public</strong></td><td>Anyone on the internet — no login required. Contributes to open source. Discoverable via search.</td><td>All account types</td></tr>
+        <tr><td><strong>Private</strong></td><td>Only the owner and explicitly invited collaborators (or org members with repo access).</td><td>All account types</td></tr>
+        <tr><td><strong>Internal</strong></td><td>All authenticated members of the enterprise — enables InnerSource workflows.</td><td>GitHub Enterprise Cloud only</td></tr>
+      </table>
+      <div class="warn-box" style="margin-top:14px">
+        <p><strong>Note:</strong> Forking a private repository keeps the fork private by default. Forking a public repo creates a public fork. You cannot change a repo from public to private if it has been forked (forks remain).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Security &amp; Admin</h4>
+    <ul>
+      <li><strong>Passkeys</strong> = phishing-resistant passwordless auth (biometric/hardware key). More secure than password + 2FA. NEW in 2026 objectives.</li>
+      <li>EMUs = enterprise-controlled accounts via IdP. EMU users CANNOT contribute to external/public repos.</li>
+      <li>Triage role = manage issues/PRs without code write access. Maintain = manage settings without sensitive admin.</li>
+      <li>Branch protection rules require PRs, status checks, signed commits — enforced by admins, can bypass for specific users.</li>
+      <li>Secret Scanning + Push Protection blocks commits with credentials before they reach GitHub.</li>
+      <li>Internal repos = Enterprise-only. All org/enterprise members can see them — enables InnerSource.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DOMAIN 7: COMMUNITY ===== -->
+<div id="d7-community" class="domain-header dh-purple">
+  <div class="dh-icon">🌍</div>
+  <h2>Domain 7 — The GitHub Community &amp; Open Source</h2>
+  <span class="dh-badge">5–10%</span>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🌐</div><h4>Open Source on GitHub</h4></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-box accent-purple"><div class="lbl">Open Source Benefits</div><div class="val">Transparency, community contributions, peer review, faster innovation, free to use and modify (under license terms). GitHub hosts the vast majority of the world's open-source code.</div></div>
+        <div class="info-box accent-green"><div class="lbl">GitHub Sponsors</div><div class="val">Financially support open-source maintainers and projects directly through GitHub. Sponsors pay monthly or one-time. GitHub waives its platform fee for Sponsors. Sponsors get recognition on the maintainer's profile.</div></div>
+        <div class="info-box accent-blue"><div class="lbl">GitHub Marketplace</div><div class="val">Discover, purchase, and install apps and Actions that integrate with GitHub workflows. Free and paid tools — CI systems, code quality, project management, security scanning, and more.</div></div>
+        <div class="info-box accent-orange"><div class="lbl">InnerSource</div><div class="val">Applying open-source collaboration practices within a private organisation — internal repos visible to all org members (Internal visibility), encouraging cross-team contributions and fork/PR workflows internally.</div></div>
+        <div class="info-box accent-slate"><div class="lbl">Follow Users/Orgs</div><div class="val">Follow other GitHub users or organisations to see their public activity in your feed — stars, repos they create, projects they contribute to. Helps discover new projects and tools.</div></div>
+        <div class="info-box accent-purple"><div class="lbl">GitHub Explore</div><div class="val">Discover trending repos, topics, and developers. Browse by programming language, topic tag, or collections curated by GitHub.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head purple"><div class="ch-icon">🍴</div><h4>Forks vs Templates vs Discoverable Repos</h4></div>
+    <div class="card-body">
+      <table class="purple">
+        <tr><th>Mechanism</th><th>What it is</th><th>When to Use</th><th>Key Difference</th></tr>
+        <tr><td><strong>Fork</strong></td><td>A personal copy of someone else's repo in your GitHub account, linked to the original (upstream)</td><td>Contribute to a project you don't own. Propose changes via PR. Keep in sync with upstream.</td><td>Maintains connection to original. Has the full commit history. Forks show in the original's network graph.</td></tr>
+        <tr><td><strong>Template Repository</strong></td><td>A repo marked as a "template" — others can generate a fresh repo with the same structure (no history)</td><td>Create project starters, boilerplate code, standard repo structures for teams</td><td>No link to original. No commit history copied. Clean start. Better than fork for scaffolding.</td></tr>
+        <tr><td><strong>Discoverable Repo</strong></td><td>A public repo made discoverable via topics, README, description, and GitHub Explore</td><td>Make your project findable by the community — star and contribute growth</td><td>Use topics (tags) and a good README/description. Show up in Explore and search results.</td></tr>
+      </table>
+      <div class="exam-tip">
+        <div class="tip-label">⭐ Fork vs Template</div>
+        <ul>
+          <li><strong>Fork</strong> = for contributing back to a project. Linked to original. Has full commit history.</li>
+          <li><strong>Template</strong> = for starting a new project. No link. No commit history. Clean slate.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ptr">
+    <h4>⭐ Points to Remember — Community</h4>
+    <ul>
+      <li>GitHub Sponsors = financial support for maintainers. GitHub waives platform fees for Sponsors.</li>
+      <li>GitHub Marketplace = apps and Actions to extend GitHub. Apps integrate with workflows and repos.</li>
+      <li>InnerSource = open-source practices internally. Uses Internal repo visibility on Enterprise.</li>
+      <li>Fork = copy with history + upstream link (for contributions). Template = clean start, no link, no history.</li>
+      <li>Following users shows their activity in your feed. Following ≠ watching (watching = notifications from a specific repo).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== CHEAT SHEET ===== -->
+<div id="cheatsheet" class="domain-header dh-dark">
+  <div class="dh-icon">⚡</div>
+  <h2>Quick-Fire Cheat Sheet — Scenario to Answer</h2>
+</div>
+<div class="wrap">
+  <div class="cheat-bg">
+    <h3>🎯 Scenario → Correct GH-900 Answer</h3>
+    <div class="cs-grid">
+      <div class="cs-item"><strong>What is the difference between Git and GitHub?</strong>Git = version control tool (local). GitHub = cloud platform built on Git (adds collaboration, CI/CD, etc.)</div>
+      <div class="cs-item"><strong>Pull Requests are a feature of...</strong>GitHub (NOT Git). Git has no concept of PRs — only merge and pull commands.</div>
+      <div class="cs-item"><strong>GitHub Flow — what is always deployable?</strong>The <code>main</code> branch. All work happens on feature branches; main is never broken.</div>
+      <div class="cs-item"><strong>Auto-close an issue when PR merges</strong>Use <code>Closes #45</code>, <code>Fixes #45</code>, or <code>Resolves #45</code> in the PR description.</div>
+      <div class="cs-item"><strong>Someone needs to manage issues but NOT push code</strong>Assign <strong>Triage</strong> role — manages issues/PRs without code write access.</div>
+      <div class="cs-item"><strong>Automatically request reviewers when specific files change</strong>CODEOWNERS file in <code>.github/</code> — maps file patterns to required reviewers.</div>
+      <div class="cs-item"><strong>github.dev vs Codespaces — key difference</strong>github.dev = no terminal, no code execution. Codespaces = full dev env with terminal.</div>
+      <div class="cs-item"><strong>Copilot org-wide policies, audit logs, IP indemnity</strong>Copilot Business (or Enterprise). NOT available on Individual.</div>
+      <div class="cs-item"><strong>Copilot personalised to company codebase + knowledge bases</strong>Copilot Enterprise only.</div>
+      <div class="cs-item"><strong>Copilot multi-step autonomous coding iteration</strong>Agent Mode — new in 2026. Iterates until task complete.</div>
+      <div class="cs-item"><strong>Phishing-resistant passwordless authentication</strong>Passkeys — biometric or hardware key. More secure than 2FA.</div>
+      <div class="cs-item"><strong>Enterprise accounts provisioned/controlled by IdP</strong>Enterprise Managed Users (EMUs). EMU users cannot access external public repos.</div>
+      <div class="cs-item"><strong>Repo visible to all enterprise members but not public</strong>Internal visibility — Enterprise Cloud feature for InnerSource.</div>
+      <div class="cs-item"><strong>Prevent force pushes to main</strong>Branch Protection Rule — block force pushes option.</div>
+      <div class="cs-item"><strong>Secret Gist — who can see it?</strong>Anyone with the URL. NOT truly private — just not discoverable/indexed.</div>
+      <div class="cs-item"><strong>Copy a project structure without commit history</strong>Template Repository — generates new repo with same structure, no history.</div>
+      <div class="cs-item"><strong>Copy a repo to contribute changes back</strong>Fork — copy with history, linked to upstream. Open PR from fork to original.</div>
+      <div class="cs-item"><strong>Apply open-source practices inside an org</strong>InnerSource — uses Internal repos, encourages cross-team fork/PR workflows.</div>
+      <div class="cs-item"><strong>Host a static website from a GitHub repo</strong>GitHub Pages — serves static content from main, /docs, or gh-pages branch.</div>
+      <div class="cs-item"><strong>Forum-style open-ended conversations on a repo</strong>GitHub Discussions — not Issues (Issues are work items with open/closed state).</div>
+      <div class="cs-item"><strong>Financially support an open-source maintainer</strong>GitHub Sponsors — GitHub waives platform fee.</div>
+      <div class="cs-item"><strong>Actions workflow location</strong><code>.github/workflows/*.yml</code> — YAML files define all workflows.</div>
+      <div class="cs-item"><strong>Reusable response templates for issue comments</strong>Saved Replies — personal account-level templates, usable in any repo.</div>
+      <div class="cs-item"><strong>Show progress toward a release with a deadline</strong>Milestones — group issues/PRs toward a goal with a due date + % progress bar.</div>
+    </div>
+  </div>
+
+  <!-- MUST KNOW FACTS -->
+  <div class="card" style="margin-top:20px">
+    <div class="card-head green"><div class="ch-icon">🧠</div><h4>Must-Know Facts — High-Frequency Exam Topics</h4></div>
+    <div class="card-body">
+      <div class="must-know-grid">
+        <div class="must-know-item"><div class="mk-q">GitHub Flow — main branch rule</div><div class="mk-a">Main is ALWAYS deployable. Never commit directly to main — always branch.</div></div>
+        <div class="must-know-item"><div class="mk-q">CODEOWNERS location</div><div class="mk-a">Root, <code>docs/</code>, or <code>.github/</code> directory of the repository.</div></div>
+        <div class="must-know-item"><div class="mk-q">Issue closing keywords</div><div class="mk-a">Closes, Fixes, Resolves + #issue-number in PR body. Works on merge.</div></div>
+        <div class="must-know-item"><div class="mk-q">Draft PR purpose</div><div class="mk-a">Signal WIP, block merge, suppress reviewer auto-requests. "Mark ready for review" to unlock.</div></div>
+        <div class="must-know-item"><div class="mk-q">github.dev — what it cannot do</div><div class="mk-a">No terminal, no code execution. Lightweight editor only. Press "." on any repo to open.</div></div>
+        <div class="must-know-item"><div class="mk-q">Codespaces config file</div><div class="mk-a"><code>devcontainer.json</code> in <code>.devcontainer/</code>. Defines container, tools, extensions.</div></div>
+        <div class="must-know-item"><div class="mk-q">Secret Gist privacy</div><div class="mk-a">Not indexed/discoverable, but anyone with the URL can view it. NOT truly private.</div></div>
+        <div class="must-know-item"><div class="mk-q">EMUs — restriction</div><div class="mk-a">Managed by IdP. Cannot contribute to external/public repos outside the enterprise.</div></div>
+        <div class="must-know-item"><div class="mk-q">GitHub Actions file location</div><div class="mk-a"><code>.github/workflows/</code> — YAML files. Triggered by events (push, PR, schedule…).</div></div>
+        <div class="must-know-item"><div class="mk-q">Copilot Enterprise — unique feature</div><div class="mk-a">Personalised to your codebase + knowledge bases. Copilot in github.com web UI.</div></div>
+        <div class="must-know-item"><div class="mk-q">Agent Mode</div><div class="mk-a">Multi-step autonomous coding. Copilot iterates, runs tests, fixes errors until task complete. NEW 2026.</div></div>
+        <div class="must-know-item"><div class="mk-q">Passkeys vs 2FA</div><div class="mk-a">Passkeys = phishing-resistant, passwordless (biometric/hardware). More secure than password + TOTP 2FA.</div></div>
+        <div class="must-know-item"><div class="mk-q">Stars vs Watches</div><div class="mk-a">Stars = bookmarks/popularity. Watching = receive ALL activity notifications. Different purposes.</div></div>
+        <div class="must-know-item"><div class="mk-q">Fork vs Template</div><div class="mk-a">Fork = copy + upstream link + full history (contribute back). Template = no link, no history (fresh start).</div></div>
+        <div class="must-know-item"><div class="mk-q">Projects layouts</div><div class="mk-a">Table (spreadsheet), Board (Kanban), Roadmap (timeline). All views of same data.</div></div>
+        <div class="must-know-item"><div class="mk-q">InnerSource repo visibility</div><div class="mk-a">Internal repos — visible to all enterprise members, not the public. Enterprise Cloud only.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EXAM TRAPS ===== -->
+<div id="traps" class="domain-header dh-slate">
+  <div class="dh-icon">⚠️</div>
+  <h2>Common Exam Traps &amp; Pitfalls</h2>
+</div>
+<div class="wrap">
+  <div class="traps-card">
+    <div class="traps-head"><div style="font-size:1.4em">⚠️</div><h4>Don't Fall For These — Tricky GH-900 Distinctions</h4></div>
+    <div class="traps-body">
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "Pull Requests are a Git feature"<br>
+        <span class="correct">✅ CORRECT:</span> Pull Requests are a <strong>GitHub</strong> feature (and similar platforms). Git itself only has <code>git merge</code> and <code>git pull</code>. PRs are the layer GitHub adds for code review and collaboration.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "A Secret Gist is private — only you can see it"<br>
+        <span class="correct">✅ CORRECT:</span> Secret Gists are <strong>not indexed and not discoverable</strong>, but they are NOT private. Anyone who has the URL can view the content. If you need truly private notes, don't use a Gist.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "github.dev is just a lighter version of Codespaces — use it when you need something quick"<br>
+        <span class="correct">✅ CORRECT:</span> github.dev has <strong>no terminal and cannot run code</strong>. It's a read/edit-only browser editor. If the scenario requires running tests, installing packages, or executing commands — the answer is <strong>Codespaces</strong>.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "Fork a repo when you want to use it as a project template"<br>
+        <span class="correct">✅ CORRECT:</span> Fork = copy with full commit history + upstream link (use when contributing back). Template Repository = generate a fresh repo with same structure but <strong>no commit history, no upstream link</strong>. For boilerplate/starters → use Template.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "Issues and Discussions serve the same purpose"<br>
+        <span class="correct">✅ CORRECT:</span> Issues = work items with Open/Closed state, tracked on project boards, tied to PRs. Discussions = open-ended conversations, Q&amp;A, announcements — no "done" state. A Discussion can be converted to an Issue if it reveals actionable work.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "Starring a repo means you'll get notifications about it"<br>
+        <span class="correct">✅ CORRECT:</span> Starring = bookmarking a repo (shows interest/popularity). To get notifications → <strong>Watch</strong> the repo. Starring gives you a personal list of bookmarked repos, nothing more.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "Copilot Individual supports org-wide policy management"<br>
+        <span class="correct">✅ CORRECT:</span> Org-wide policy management, audit logs, and IP indemnity require <strong>Copilot Business or Enterprise</strong>. Individual only covers the developer's own usage.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "GitHub Flow and Git Flow are the same thing"<br>
+        <span class="correct">✅ CORRECT:</span> GitHub Flow = simple (main + feature branches, continuous delivery). Git Flow = complex (main + develop + release + hotfix branches, scheduled releases). GH-900 tests <strong>GitHub Flow</strong>.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "EMU accounts work like normal GitHub accounts"<br>
+        <span class="correct">✅ CORRECT:</span> Enterprise Managed Users are <strong>fully controlled by the enterprise IdP</strong> — users don't choose their own usernames or profile details. EMU users <strong>cannot contribute to external public repos</strong> — they're restricted to enterprise resources only.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "Any user can be assigned to an issue in any repo"<br>
+        <span class="correct">✅ CORRECT:</span> You can only assign someone to an issue if they are a <strong>collaborator on the repository or a member of the organisation</strong>. Random GitHub users cannot be assigned.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "The Triage role allows pushing code changes"<br>
+        <span class="correct">✅ CORRECT:</span> Triage = manage issues and PRs only. <strong>No write access to code</strong>. Write role is required to push commits to branches.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "Internal repos are available on all GitHub plans"<br>
+        <span class="correct">✅ CORRECT:</span> Internal repos are <strong>GitHub Enterprise Cloud only</strong>. They're not available on Free, Pro, or Team plans. On non-enterprise accounts, you only have Public and Private.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "Passkeys are just a fancy version of 2FA"<br>
+        <span class="correct">✅ CORRECT:</span> Passkeys are a <strong>replacement for passwords entirely</strong> — phishing-resistant, using biometrics or hardware keys. They are not a second factor on top of a password; they replace the password-based authentication flow.
+      </div>
+
+      <div class="trap">
+        <span class="false">❌ TRAP:</span> "Copilot Agent Mode is available on Copilot Individual"<br>
+        <span class="correct">✅ CORRECT:</span> Agent Mode and advanced Copilot agent features are available depending on IDE support and plan. Check current GitHub docs — some agent features require Business or Enterprise for org-managed availability. Don't assume all Copilot features are in all tiers.
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL BANNER -->
+  <div style="background:linear-gradient(135deg,#0d1117 0%,#0f2d0f 50%,#161b22 100%);color:white;border-radius:14px;padding:32px;text-align:center;margin:24px 0 8px;border:1px solid rgba(35,134,54,0.3);">
+    <div style="font-size:2.5em;margin-bottom:10px">🎯</div>
+    <h3 style="font-size:1.5em;margin-bottom:10px;color:#7ee787">Ready for Exam Day!</h3>
+    <p style="opacity:0.82;font-size:14px;max-width:640px;margin:0 auto 20px;line-height:1.7;color:#cdd9e5">GH-900 tests <strong style="color:white">breadth</strong> across all 7 domains. Your Git/DevOps background means Domain 1 (25–30%) is your strongest — make sure you also cover the GitHub-specific tools (Copilot agents, EMUs, passkeys) added in the January 2026 update.</p>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;font-size:13px">
+      <div style="background:rgba(255,255,255,0.1);border-radius:8px;padding:9px 18px;border:1px solid rgba(255,255,255,0.15)">📝 Pass score: 700 / 1000</div>
+      <div style="background:rgba(255,255,255,0.1);border-radius:8px;padding:9px 18px;border:1px solid rgba(255,255,255,0.15)">📚 Study: learn.microsoft.com/gh-900</div>
+      <div style="background:rgba(255,255,255,0.1);border-radius:8px;padding:9px 18px;border:1px solid rgba(255,255,255,0.15)">🔄 Updated: January 2026</div>
+      <div style="background:rgba(255,255,255,0.1);border-radius:8px;padding:9px 18px;border:1px solid rgba(255,255,255,0.15)"><a href="#overview" style="color:#7ee787">⬆️ Back to top</a></div>
+    </div>
+  </div>
+  <p style="text-align:center;color:#888;font-size:12px;padding-bottom:24px">
+    <a href="../index.html" style="color:var(--gh-blue)">← Back to Learning Hub</a> &nbsp;|&nbsp; Last updated: April 2026 &nbsp;|&nbsp; Based on January 2026 GH-900 exam objectives
+  </p>
+</div>
+
+</body>
+</html>
